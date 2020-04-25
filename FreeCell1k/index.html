@@ -1,0 +1,210 @@
+<!--
+
+Tiny Free Cells - A Tiny JavaScript Card Game
+Created by Frank Force 2019
+License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+-->
+<html>
+<head>
+<title>FreeCell 1k</title>
+<meta charset="utf-8">
+</head>
+<body style="background-color:#000;margin:0">
+<canvas id=a style='touch-action:none'></canvas>
+<script>
+
+// init shim variables 
+const d = document;
+const b = d.body;
+const c = a.getContext('2d');
+
+///////////////////////////////////////////////////////////////////////  
+
+// ==ClosureCompiler==
+// @compilation_level ADVANCED_OPTIMIZATIONS
+// @output_file_name default.js
+// @language_out ECMASCRIPT_2019
+// ==/ClosureCompiler==
+
+/////////////////////////////////////////////////////////////////////////////// 
+// globals
+/////////////////////////////////////////////////////////////////////////////// 
+
+let playerHand, lastTouchedStack;
+let mouse=0, mouseDown=0, mouseWasDown=0, grabOffsetX=0, grabOffsetY=0, stacks=[];
+
+//////////////////////////////////////////////////////////////////////////////
+// stack object
+//////////////////////////////////////////////////////////////////////////////
+
+S=function(cards, x, y, type, topY)
+{
+    topY = y;                                         // save position of top
+    
+    this.A =(newCard)=> cards.push(newCard);          // put card on top
+    this.M =(newStack)=> newStack.A(cards.pop());     // move card
+    this.S =()=> cards.length;                        // get stack size    
+    this.T =(s)=> cards[this.S()-1][s];               // get top card 
+  
+    // shuffle deck
+    for(i=52; type>1 && i--;)
+        cards.splice(Math.random()*(this.S()+1)|0,0,[i%13,i/13|0]);  
+         
+    this.U=()=>                                 // stack update
+    {     
+        if (this == playerHand)                 // check if player hand
+        {     
+            grabOffsetX *= .9;                  // move grab to center
+            grabOffsetY *= .9;
+            x = mouse.x - grabOffsetX;          // update mouse pos
+            y = mouse.y - grabOffsetY;        
+            if (this.S() && !mouseDown)         // player try to drop
+                this.M(lastTouchedStack);       // move card to last stack
+        }
+        else
+        {
+            D(x, y, 85, type*50, 9017+type*3);                    // empty stack
+            D(x, y, 75, 99, 9021+type);                           // empty stack
+        }
+        
+        //c.strokeStyle ="#F00";c.strokeRect(x-35,topY-60,70,120);// debug hitbox
+        if (mouseWasDown != mouseDown &&                          // mouse changed
+            mouse.x-x<35 &&                                       // check mouse
+            mouse.x-x>-35 &&   
+            mouse.y-topY<60 && 
+            mouse.y-topY>-60) 
+        {
+            if (mouseDown)                       // try to grab
+            {
+                if (this.S() && type<1 &&        // has cards and is not foundation
+                    !playerHand.S())             // player isn't holding a card
+                {
+                    this.M(playerHand);          // give card to player
+                    lastTouchedStack = this;     // incase player cant drop
+                    grabOffsetX = mouse.x-x;     // save grab offset
+                    grabOffsetY = mouse.y-topY;  // save grab offset
+                }
+            }
+            else if (playerHand.S() &&                       // try to drop
+            (
+                type > 0 &&                                  // move to foundation
+                (
+                     this.S() &&                             // not empty
+                        this.T(0)+1 == playerHand.T(0) &&    // is one more then
+                        playerHand.T(1) == this.T(1) ||      // must be same suit
+                        !playerHand.T(0)                     // or an ace works too
+
+                ) ||
+                type < 0 && !this.S() ||                     // moving to free cell
+                !type &&                                     // moving to cascade
+                    (!this.S() ||                            // its empty
+                    1 + playerHand.T(0) == this.T(0) &&      // is one more then
+                    (playerHand.T(1)-this.T(1))%2)           // alternate suit
+                )
+            )
+                playerHand.M(this);                          // place card
+        }
+        
+        j = y;                                                 // start at our y
+        for(W of cards)                                        // for every card
+        {
+            l = W[1]%2*50;                                     // get lightness value 
+            topY = j;                                          // save top of stack
+            D(x, j, 99, 0, 9608);                              // black border
+            D(x, j, 95, 99, 9608);                             // white background
+            
+            D(x, j, 85, l, 9824 + (W[1]>1?W[1]>2?6:3:5*W[1])); // suit
+            m = (W[0]+3)%13;                                   // ace above king
+            D(x-20, j-42, 26, l, m=m<4?"JQKA"[m]:W[0]+1);      // card value 2-A
+            D(x+20, j+42, 26, l, m);                           // card value
+            j += type?0:50;                                    // move down
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// game setup
+//////////////////////////////////////////////////////////////////////////////
+
+playerHand = new S([],0,0,2);                      // give player randomized deck
+
+for(x = 99; playerHand.S(); x+=99)                 // 8 cascades
+{
+    stacks.push(s=new S([], x, 250, 0))            // add to cascade stack
+    for(y=(x<400?7:6);y--;)                        // set up stacks
+        playerHand.M(s);
+    
+    stacks.push(s=new S([], x, 99, x<400?-1:1))    // foundations and freecells
+}
+
+// push hand to top of stack so it renders last
+stacks.push(playerHand);
+
+// spawn an array of random cards
+//for(x = 99; x < 2000; x += 75)
+//for(y = 99; y < 2000; y += 120)
+//    stacks.push(s=new S([[Math.random()*13|0, Math.random()*4|0]], x, y, 0))
+ 
+/////////////////////////////////////////////////////////////////////////////// 
+// main update loop
+/////////////////////////////////////////////////////////////////////////////// 
+    
+setInterval(G=()=>
+{
+    c.fillRect(0,0,
+        a.width = innerWidth,        // set background to window size
+        a.height = innerHeight, 
+        c.fillStyle="#223");         // background color
+    
+    for (s of stacks)
+        s.U();                       // update stacks      
+    mouseWasDown = mouseDown;        // track when mouse goes down
+    
+    // debug stuff
+    //c.fillStyle="#FFF";c.fillText(playerCardCount,100,100);
+    //c.strokeStyle ="#F00";c.strokeRect(0,0,1280,720);                     // 720p
+    //c.strokeStyle ="#F00";c.strokeRect(a.width/2-20,a.height/2-20,40,40); // center
+    
+},16);
+
+/////////////////////////////////////////////////////////////////////////////// 
+// text rendering system
+/////////////////////////////////////////////////////////////////////////////// 
+    
+D = (x, y, size, v, text)=>                                  // draw text
+{    
+    c.textAlign = "center";                                  // center text
+    c.textBaseline = "middle";                               // vertical center
+    c.font = size + "px arial";                              // set font
+    c.fillStyle="hsl(0 99%"+v+"%";                           // set hsl color
+    c.fillText(text>10?String.fromCharCode(text):text,x,y);  // render text
+}
+
+/////////////////////////////////////////////////////////////////////////////// 
+// mouse input  
+/////////////////////////////////////////////////////////////////////////////// 
+
+onmousedown =()=> { mouseDown = 1; }
+onmouseup   =()=> { mouseDown = 0; }
+onmousemove =(e)=> mouse = e;
+
+//////////////////////////////////////////////////////////////
+// enhance - touch input
+    
+ontouchmove=ontouchstart=(e)=>
+{
+    if(!e.touches)
+        return;
+        
+    mouseDown=1,mouse = {x:e.touches[0].clientX, y:e.touches[0].clientY};
+}
+  
+ontouchend=(e)=>
+{
+    mouseDown = 0;
+}
+    
+</script>
+</body>
+</html>

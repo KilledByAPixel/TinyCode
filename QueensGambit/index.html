@@ -1,0 +1,242 @@
+<!--
+
+"Queen's Gambit" - AKA Chesstron 1024
+Created by Frank Force 2019
+License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+Arrow keys move. Mouse aims. There are 9 levels. God save the ♛!
+
+♟, ♜, ♝, and ♞ have rebelled killed the ♚!
+It's up to you to... throw ♥ at them.
+Kill them with kindness, that's what I always say. 
+
+Features:
+- Game mechanics inspired by Robotron: 2084
+- Dual stick shooter style gameplay
+- 4 different enemy types with chess piece movement
+  - Pawn jumps in short hops towards player
+  - Rook slides at 90 degree, grows, and splits into copy of self and pawn
+  - Bishop slides around randomly and shoots Horses
+  - Numbers will kill you and also show the current level
+- Player guaranteed safety at start of each level
+- Objects bounce off walls of play area
+- Bullets stop when they hit enemies
+- Enemies get more aggressive over time
+- There are 9 levels and you win, it is hard but beatable
+- Each level has more enemies that start more aggressive
+- More difficult enemies are less likely to spawn
+- Game adapts to any window size, works great in fullscreen mode
+- Special Features
+  - Color display with some white stuff
+  - Rainbow flashing numbers!
+  - Motion blur... oooooh, one byte folks.
+  - Enemy death effect
+  - Level transition effect (actually the player safe zone)
+- Thanks for reading this! 
+- Gameplay tip: Shoot bishops first, then rooks, then pawns.
+                              
+Special thanks: Steph - You are the ♥ of my life.
+-->
+
+<html>
+<head>
+<title>Queen's Gambit</title>
+<meta charset="utf-8">
+</head>
+<body style="background-color:#000;margin:0">
+<canvas id=a style='touch-action:none'></canvas>
+<script>
+
+// init shim variables 
+const d = document;
+const b = d.body;
+const c = a.getContext('2d');
+a.width = innerWidth;
+a.height = innerHeight;
+onresize = e => location.reload();
+
+//////////////////////////////////////////////////
+// Queen's Gambit - AKA Chesstron 1024
+// Frank Force 2019
+//////////////////////////////////////////////////
+
+// game object
+A=function(vx, vy, x, y, s, type)
+{
+    // object types...
+    //  5 ♝ bishop - moves randomly diagonals, shoots at player
+    //  4 ♜ rook - moves randomly at right angles, spawns pawns
+    //  3 ♟ pawn - moves towards player in short steps
+    //  2 number - stationary enemy, shows level number
+    //  1 ♞ horse - enemy bullet
+    // >0 enemies
+    // <=0 player stuff
+    //  0 ♛ player
+    // -1 ♥ heart - player bullet
+    // -2 ♛ enemy killbox at start of round
+    // -3 ❀ explosion effect
+    
+    this.U=_=>   // object update
+    {
+        // update enemy count
+        enemycount += type > 1;
+
+        // draw object
+        c.font = 2*s+"px'";
+        c.fillStyle=`hsl(${80*(type-2?4+type:framecount/9)} 90%${type>-1?50:99}%)`;
+        c.fillText(type-2?"❀♛♥♛♞1♟♜♝"[level>9?0:3+type]:" "+level,x-s,y+s/2);
+        //c.strokeStyle ="#F00";c.strokeRect(x-s/2,y-s/2,s,s); // debug hitbox
+        //c.fillText(agro,9,199); // debug agro
+
+        // update position, bounce off walls, and apply damping
+        x += vx *=x+vx > a.width  | x+vx < 0?-.5:(!type | type == 3)?.8:1;
+        y += vy *=y+vy > a.height | y+vy < 0?-.5:(!type | type == 3)?.8:1;
+
+        // get smaller and die over time
+        if (type < 0 | type == 1) // ♥ heart, ❀ explosion, ♛ killbox, and ♞ horse
+            s *= s>13?(type<-1?.9:.99):actorList.splice(actorList.indexOf(this),1);
+        
+        if (!type) // ♛ player update
+        {
+            // show player lives
+            c.fillText("♛x"+lives,9,49);
+        
+            // movement controls
+            vx += inputIsDown[2] - inputIsDown[0];
+            vy += inputIsDown[3] - inputIsDown[1];
+
+            // auto shoot in direction of mouse
+            if (framecount%5==0)
+                actorList.push(new A((mouseX - x)/9,(mouseY - y)/9,x,y,18, -1));
+        }
+
+        // cross update with each other actor
+        actorList.map(a=>a.C(x,y,s,type,this));
+    }
+    
+    this.C=(ox,oy,os,otype,that)=>    // cross update
+    {
+        // check enemy vs bullet or player
+        if (type > 0 & otype > -3 & otype < 1 & (!!otype|framecount>9))
+        {
+            // update enemies periodically
+            if (!otype & framecount > 60 & !R(agro))
+            {
+                if (type == 3)  // ♟ pawn
+                {
+                    // move towards player
+                    vx += ox-x<0?-9:9;
+                    vy += oy-y<0?-9:9;
+                }
+                if (type == 4) // ♜ rook
+                {
+                    // get larger and split into smaller copy of self and pawn at max size
+                    if (++s>40)
+                        actorList.push(new A(0,0,x,y,s=25,3));
+                     
+                    // move randomly in 90 degree angles
+                    vx = R(2)?0:R(2)?-4:4;
+                    vy = vx?0:R(2)?-4:4;
+                } 
+                if (type == 5)    // ♝ bishop
+                {
+                    // shoot at player
+                    if (!R(9))
+                        actorList.push(new A((ox - x)/80,(oy - y)/80,x,y,50, 1));
+                    
+                    // move randomly on diagonals
+                    vx = R(2)?-4:4;
+                    vy = R(2)?-4:4;
+                }
+            }
+            
+            // object collision check
+            if ((ox-x)**2 < (s+os)**2 && (oy-y)**2 < (s+os)**2)
+            {
+                // ❀ spawn hit effect
+                actorList.push(new A(0,0,x,y,2*s,-3));
+                
+                // remove dead actors (except for kill box)
+                if (otype+2)
+                    actorList.splice(actorList.indexOf(that),1);
+                actorList.splice(actorList.indexOf(this),1);
+                
+                // check if player died
+                otype?0:playerDead=--lives;
+            }
+        }
+    }
+}
+
+setInterval( _=> // main game loop
+{
+    // clear screen
+    c.fillStyle="#0005";
+    c.fillRect(0,0,a.width,a.height);
+     
+    // actor update
+    enemycount = 0;
+    actorList.map(a=>a.U());
+    
+    // increase agro over time
+    agro-= ++framecount%50==0&agro>9;
+    
+    // check if all enemies or player is dead
+    if (!enemycount||playerDead&&lives>0)    
+    {
+        // reset player dead and frame count
+        playerDead = framecount=0;
+        
+        // increase enemy count each level
+        i = enemycount? enemycount : ++level*25;
+        
+        // more agro as level increases
+        agro = 40-level;
+        
+        // reset actor list
+        actorList = [];
+        
+        // spawn player & killbox if not final level
+        level<=9&&actorList.push(
+            new A(0,0,a.width/2,a.height/2,25,0), 
+            new A(0,0,a.width/2,a.height/2,a.width/9,-2)
+        );
+        
+        // spawn random enemies
+        for(;i--;)
+            actorList.push(new A(0,0,R(a.width),R(a.height),25+R(9), R(2)+!R(3)+!R(3)+2));
+    }
+},16);
+    
+// input
+onkeydown   = x=> inputIsDown[x.keyCode%37]=2;
+onkeyup     = x=> inputIsDown[x.keyCode%37]=0;
+onmousemove = x=> {mouseX = x.x; mouseY = x.y }
+
+// init 
+let actorList=[], inputIsDown=[0,0,0,0], level=0, framecount=0, mouseX=0, mouseY=0, playerDead=0, lives=3;
+let R=m=>Math.random()*m|0; // random integer
+let enemycount, agro;       // can be removed from minified
+
+/////////////////////////////////////////////////////////////////////////////////////
+// ENHANCE - wasd control
+WASD=x=>x==87?1:x==83?3:x==65?0:x==68?2:4
+onkeydown=x=>{inputIsDown[WASD(x.keyCode)]=2;inputIsDown[x.keyCode%37]=2;}
+onkeyup  =x=>{inputIsDown[WASD(x.keyCode)]=0;inputIsDown[x.keyCode%37]=0;}
+
+</script>
+</body>
+</html>
+<!------------------------------------------------------                    
+   ♝                            ♟               
+           ♞   ♜                         ♟           
+♜        ♟             ♟          ♟           ♜         
+      ♜    ♟    ♟                      ♝              
+     ♜          ♟                    ♞     ♟    ♟      
+          ♜♟  ♟             ♛                      
+ ♟        ♟               ♥                ♟       ♟     
+       ♝     ♟         ♥              ♟                   
+    ♟           ❀   ♥                ♟ ♟    ♟         
+   ♟   ♟         ❀  ♟   ❀         ♟     ♝             
+♜             ♟     ❀   ♟    ♟      ♟   ♟       ♜     
+------------------------------------------------------->
