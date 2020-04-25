@@ -1,6 +1,6 @@
 # 1 Kilobyte Games
 
-These programs use [JS1k](https://js1k.com/) rules to fit into 1k, meaning a small shim is not included in the size.
+This is a small collection of some of the 1k JavaScript programs I have made. They use the [JS1k](https://js1k.com/) rules to fit into 1k, so a small shim is not included in the size.
 
 Live Demos...
 
