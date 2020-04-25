@@ -1,4 +1,4 @@
-# 1 Kilobyte Games
+# 1 Kilobyte JavaScript Demos
 
 This is a small collection of some of the 1k JavaScript programs I have made.
 
