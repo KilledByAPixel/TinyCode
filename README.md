@@ -14,4 +14,4 @@ They use the [JS1k](https://js1k.com/) rules to fit into 1k, so a small shim is 
 
 ## [ZzFX](https://killedbyapixel.github.io/1k/ZzFX/index_1k.html) - Zuper zmall zeeded zound zynth
 
-## [Infinite Yin Yangs](https://killedbyapixel.github.io/1k/InfiniteYinYangs/index_1k.html) - Yin yang fractal shader
+## [Infinite Yin Yangs](https://killedbyapixel.github.io/1k/InfiniteYinYangs/index_1k.html) - Yin yang fractal zoom
