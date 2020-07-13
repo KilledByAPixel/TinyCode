@@ -31,7 +31,7 @@ x=>
 {
     // no pieces left or randomize on R
     if (!pieceCount || controls[45])
-    {   
+    {
         // go up a level when there are no pieces left
         pieceCount || (size = ++level<11?4+level:15);
 
@@ -42,7 +42,7 @@ x=>
 
             // clear playfield and add random blockers
             for(i=0; i<size*size; ++i)
-                playArea[i] = (i+1)%size<2 || i%(size*size-size)<size || !R(29) ? 
+                playArea[i] = (i+1)%size<2 || i%(size*size-size)<size || !R(19) ? 
                     -1 : 0;
 
             for(pieceCount = level; --o && pieceCount;)
@@ -52,7 +52,7 @@ x=>
                 y = R(size);
                 
                 // try again if -1 or 9 (to prevent 10s) or if empty and not first and large chance
-                if (playArea[r = i=size*y+x] < 9 && playArea[i] >= 0 && (pieceCount == level || playArea[i] || !R(999)))
+                if (playArea[r = i=size*y+x] < 9 & playArea[i] >= 0 && (pieceCount == level | !R(999) || playArea[i]))
                 {
                     // random direction
                     j = k = 0;
@@ -65,7 +65,7 @@ x=>
                     if (!playArea[i + size*j+k])
                     {
                         // move farther with randomness
-                        for(;R(9) && !playArea[(i+=size*j+k) + size*j+k];x+=k)y+=j
+                        for(;R(19) && !playArea[(i+=size*j+k) + size*j+k];x+=k)y+=j
 
                         // first piece must set player pos
                         pieceCount < level || (playerX = x+k*2, playerY = y+j*2);
@@ -98,28 +98,31 @@ x=>
     {
         // update moves
         n = playArea[movePos + moveOffset];
-        if (n == playArea[movePos])
+        if (moveOffset == 1 & movePos%size == size-1 || 
+            moveOffset == -1 & movePos%size == 0)
+            // prevent wrapping
+            movePos = 0;
+        else if (n == playArea[movePos])
         {
             // hit same number, join 
             playArea[movePos + moveOffset] = n-1;
             playArea[movePos] = movePos = 0;
         }
-        else if (n > 0)
-            // hit another number stop
-            movePos = 0;
-        else
+        else if (n < 1)
         {
             // open or wall, move into it
             playArea[movePos + moveOffset] = playArea[movePos];
             playArea[movePos] = 0;
             movePos = n<0 ? 0 : movePos + moveOffset;
         }
+        else
+            movePos = 0;
     }
     else
     {
         // player controls
         x = controls[2] - controls[0];
-        y = x?0:controls[3] - controls[1];
+        y = x ? 0 : controls[3] - controls[1];
 
         // rewind
         if (controls[-5] && rewind.length)
@@ -142,30 +145,28 @@ x=>
     
     // draw the play area
     o = `<pre><b><big><big><big><big><big><big><center>`;
-    for(pieceCount = i=0;i<size*size;)
+    for(pieceCount = i=0;i<size*size;controls = [0,0,0,0])
         o +=
             `<span style=color:hsl(${-40*playArea[i]},${
             playArea[i]>0 ? pieceCount = 80 : 0}%,${
             playArea[i]>0 ? 50 : 9-playArea[i]*46}%)>${ 
             (playArea[i]>0 ? playArea[i] : `·#☻`[-playArea[i]] )
-            }</span>${++i % size ? `` : `\n`}`;
+            }${++i % size ? `` : `\n`}`;
             
     B.innerHTML = o + '<span style=color:#fff>' + level;
-    
-    controls = [0,0,0,0];
 }, 16);
 
-let level = 0, pieceCount=0, controls=0, movePos=0, playArea = [];
+let level = 0, pieceCount=0, movePos=0, playArea = [],
 
-R=x=>(Math.random()*1e9|0)%x;
+R=x=>(Math.random()*1e9|0)%x,
 
 // check if it is possible to get to player pos
 C =(x, y)=> playAreaFill[size*y+x] ? 0 : x == playerX & y == playerY ||
     (playAreaFill[size*y+x] = 1)&C(x+1,y)|C(x-1,y)|C(x,y-1)|C(x,y+1);
         
-onkeydown = x=> controls[x.keyCode-37] = 10;
+onkeydown = x=> controls[x.keyCode-37] = 1;
 
 // remove from minified
-let size, playerX, playerY, playAreaFill, rewind, moveOffset;
+let size, playerX, playerY, playAreaFill, rewind, moveOffset, controls;
 
 </script>
