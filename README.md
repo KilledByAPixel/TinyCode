@@ -8,7 +8,7 @@ They use the [JS1k](https://js1k.com/) rules to fit into 1k, so a small shim is 
 
 ## [Queen's Gambit](https://killedbyapixel.github.io/1k/QueensGambit/index_1k.html) - Mashup of Robotron and Chess
 
-## [The Digit Dilemma](https://killedbyapixel.github.io/1k/DigitDilemma/index_1k.html) - Challenging Logic Puzzle
+## [The Digit Dilemma](https://killedbyapixel.github.io/1k/DigitDilemma/index.html) - Challenging Logic Puzzle
 
 ## [FreeCell 1k](https://killedbyapixel.github.io/1k/FreeCell1k/index_1k.html) - FreeCell Solitaire
 
