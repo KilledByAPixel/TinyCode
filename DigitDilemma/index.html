@@ -1,218 +1,171 @@
 <!--
 
-The Digit Dilemma - A Tiny JavaScript Puzzle Game
-Created by Frank Force 2019
-License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+Digit Dilemma Plus - A Logic Puzzle Mashup of Sokoban and 2048
+By Frank Force 2020
 
-Push numbers until none are left.
-All puzzles are solvable!
-
-Controls
- Arrows = Move
- Space = Undo
+Push numbers until none are left. All puzzles are solvable!
+`
+Arrows = Move
+Space = Undo
+R = Randomize
 
 -->
-<html>
-<head>
-<title>Digit Dilemma - Push numbers until none are left. Arrows=Move Space=Undo</title>
-<meta charset="utf-8">
-</head>
-<body>
-<script>
-
-// init shim variables 
-const d = document;
-const b = d.body;
-
-///////////////////////////////////////////////////////////////////////  
+<title>Digit Dilemma Plus - Push numbers until none are left. Arrows=Move Space=Undo R=Randomize</title>
+<body bgcolor=#000 id=B><script>
 
 // ==ClosureCompiler==
 // @compilation_level ADVANCED_OPTIMIZATIONS
-// @output_file_name default.js
 // @language_out ECMASCRIPT_2019
 // ==/ClosureCompiler==
-        
-var playerControls = [0,0,0,0], pieceCount, playArea = [], moveArea = [], playAreaFill, rewind, frameCount = 0, level = 0, size, playerX, playerY;
+
+// How to minify...
+// 1. Closure
+// 2. Remove white space, Terser recommended
+// 3. Rework variables, remove let, remove if possible
+// 4. Replace " with `
+// 5. Regpack, don't replace B
+// 6. Put it in <body bgcolor=#000 onload=""id=B>
 
 setInterval(
-function(x,y)
+x=>
 {
-    if (!pieceCount)    // go up a level when there are no pieces left
+    // no pieces left or randomize on R
+    if (!pieceCount || controls[45])
     {   
-        size = ++level<11?4+level:15;
-        pieceCount = level;
+        // go up a level when there are no pieces left
+        pieceCount || (size = ++level<11?4+level:15);
 
-        for(o=0;o<1;)
+        for(o=0;!o;)
         {
             // generate puzzle
-            o = 100000;
-            rewind = [];
+            o = 1e5;
 
-            // clear playfield
-            for(y=0;y<size;++y)
-            for(x=0;x<size;++x)
-                playArea[size*y+x] = x%(size-1)&&y%(size-1)?0:-1,moveArea[size*y+x] = [0,0];
+            // clear playfield and add random blockers
+            for(i=0; i<size*size; ++i)
+                playArea[i] = (i+1)%size<2 || i%(size*size-size)<size || !R(29) ? 
+                    -1 : 0;
 
-            // add random blockers
-            for(i=0;++i<size-8;)
-                playArea[size*R(size)+R(size)]=-1;
-
-            for(i=0;--o&&i<pieceCount;)
+            for(pieceCount = level; --o && pieceCount;)
             {
                 // get a random piece
                 x = R(size);
                 y = R(size);
-                if (playArea[size*y+x] > 8 || playArea[size*y+x] < 0 || i && !playArea[size*y+x] && R(1000))
-                    continue; // try again if -1 or 9 (to prevent 10s) or if empty and not first and large chance
+                
+                // try again if -1 or 9 (to prevent 10s) or if empty and not first and large chance
+                if (playArea[r = i=size*y+x] < 9 && playArea[i] >= 0 && (pieceCount == level || playArea[i] || !R(999)))
+                {
+                    // random direction
+                    j = k = 0;
+                    R(2) ? k = R(2)*2-1 : j = R(2)*2-1;
 
-                // random direction
-                j = R(2)?0:R(2)*2-1;
-                k = j?0:R(2)*2-1;
+                    // save location
+                    q = i - size*j-k;
 
-                // save location
-                r = size*y+x;
-                q = size*y+x - size*j-k;
+                    // must be empty on push side
+                    if (!playArea[i + size*j+k])
+                    {
+                        // move farther with randomness
+                        for(;R(9) && !playArea[(i+=size*j+k) + size*j+k];x+=k)y+=j
 
-                // must be empty on push side
-                if (playArea[size*y+x + size*j+k])
-                    continue;
-
-                // move farther with randomness
-                for(;R(10)&&playArea[size*y+x + size*j+k + size*j+k]==0;y+=j,x+=k);
-
-                // check that it is possble to get to pushing location using fill function
-                playAreaFill = playArea.slice();
-                if (!i)   // first piece must set player pos
-                    playerX = x+k+k,playerY = y+j+j;
-                if (!C(x+k+k,y+j+j))
-                    continue;
-
-                // make move
-                if (playArea[q] > 0 && playArea[q] != playArea[r])
-                    playArea[size*y+x + size*j+k] = playArea[r],playArea[r] = 0;    // bump into a piece
-                else if (!R(5) && i)
-                    playArea[size*y+x + size*j+k] = playArea[r],playArea[r] = -1;   // push into blocker (not for first piece)
-                else
-                    playArea[size*y+x + size*j+k] = ++playArea[r],i++;              // split
-
-                playerX = x+k+k,playerY = y+j+j;
+                        // first piece must set player pos
+                        pieceCount < level || (playerX = x+k*2, playerY = y+j*2);
+                        
+                        // check that it is possble to get to pushing location
+                        playAreaFill = [...playArea];
+                        if (C(x+k*2, y+j*2))
+                        {
+                            // make move
+                            if (playArea[q] > 0 && playArea[q] != playArea[r])
+                                // bump into a piece
+                                playArea[i + size*j+k] = playArea[r], playArea[r] = 0; 
+                            else if (!R(5) && pieceCount < level)
+                                 // push into blocker (not for first piece)
+                                playArea[i + size*j+k] = playArea[r], playArea[r] = -1; 
+                            else // split
+                                playArea[i + size*j+k] = ++playArea[r], --pieceCount;              
+                            playerX = x+k*2, playerY = y+j*2;
+                        }
+                    }
+                }
             }
          }
 
-         // randomize player start (can be removed if more space is needed)
-        for(playAreaFill = playArea.slice();!C(x = R(size),y = R(size));playAreaFill = playArea.slice());
-        playerX = x;
-        playerY = y;
+         // randomize player start
+        for(;playAreaFill = [...playArea], !C(x = R(size), y = R(size)););
+        rewind = [[[...playArea], playerX = x, playerY = y]];
     }
-
-    // player controls
-    x = playerControls[2] - playerControls[i = 0];
-    y = x?0:playerControls[3] - playerControls[1];
-    
-    if (playerControls[32] && rewind.length)
+    else if (movePos)
     {
-        // rewind
-        playArea = rewind[rewind.length-1][i++];
-        moveArea = rewind[rewind.length-1][i++];
-        playerX = rewind[rewind.length-1][i++];
-        playerY = rewind[rewind.length-1][i++];
-        pieceCount = rewind[rewind.length-1][i++];
-        rewind = rewind.slice(0, -1);
-    }
-    
-    // player movement
-    // check if moving into empty space or push a number
-    if (!playArea[size*y+x + size*playerY+playerX])
-    {
-        // empty space
-        playArea[size*playerY+playerX] = 0;
-        playerX+=x;
-        playerY+=y;
-        playArea[size*playerY+playerX] = -2;
-    }
-    else if (playArea[size*y+x + size*playerY+playerX] > 0)
-    {
-        // push number
-        rewind[rewind.length] = [playArea.slice(), moveArea.slice(), playerX, playerY, pieceCount];
-        moveArea[size*y+x + size*playerY+playerX] = [y,x];
-    }
-
-    // update moves
-    ++frameCount;
-    for(y=0;y<size;++y)
-    for(x=0;x<size;++x)
-    {
-        if ((moveArea[size*y+x][0] | moveArea[size*y+x][1]) && x%(size-1) && y%(size-1) && !((x+y+frameCount/4)%2))
+        // update moves
+        n = playArea[movePos + moveOffset];
+        if (n == playArea[movePos])
         {
-            n = playArea[size*y+x + size*moveArea[size*y+x][0]+moveArea[size*y+x][1]];
-            if (n==playArea[size*y+x])
-            {
-                // hit same number, join 
-                --pieceCount;
-                playArea[size*y+x + size*moveArea[size*y+x][0]+moveArea[size*y+x][1]] = n-1;
-                playArea[size*y+x] = 0;
-            }
-            else if (n < 1)
-            {
-                // open or wall, move into it
-                playArea[size*y+x + size*moveArea[size*y+x][0]+moveArea[size*y+x][1]] = playArea[size*y+x];
-                moveArea[size*y+x + size*moveArea[size*y+x][0]+moveArea[size*y+x][1]] = n<0?[0,0]:moveArea[size*y+x];
-                playArea[size*y+x] = 0;
-            }
-            moveArea[size*y + x] = [0,0];
+            // hit same number, join 
+            playArea[movePos + moveOffset] = n-1;
+            playArea[movePos] = movePos = 0;
+        }
+        else if (n > 0)
+            // hit another number stop
+            movePos = 0;
+        else
+        {
+            // open or wall, move into it
+            playArea[movePos + moveOffset] = playArea[movePos];
+            playArea[movePos] = 0;
+            movePos = n<0 ? 0 : movePos + moveOffset;
         }
     }
-    
-    i = "<pre><big><big><big><big><big><big><big><b><center>";
-    
-    for(y=0;y<size;++y)
-    for(x=0;x<size;++x)
+    else
     {
-        //i += "<font style='color:hsl("+ 30*playArea[size*y+x] + ",99%,50%)'>"
-        i += playArea[size*y+x]<=0? ".#☻"[-playArea[size*y+x]] : playArea[size*y+x];
-        if (x==(size-1))
-            i += "<br>";
+        // player controls
+        x = controls[2] - controls[0];
+        y = x?0:controls[3] - controls[1];
+
+        // rewind
+        if (controls[-5] && rewind.length)
+            [playArea, playerX, playerY] = rewind.pop();
+
+        // player movement
+        // check if moving into empty space or push a number
+        if (!playArea[i = size*y+x + size*playerY+playerX])
+        {
+            // empty space
+            playArea[size*playerY+playerX] = 0;
+            playerX += x;
+            playerY += y;
+            playArea[size*playerY+playerX] = -2;
+        }
+        else if (playArea[i] > 0) // push number
+            rewind.push([[...playArea], playerX, playerY, 
+                movePos = i, moveOffset = x + y*size]);
     }
     
-    b.innerHTML = i + level; 
+    // draw the play area
+    o = `<pre><b><big><big><big><big><big><big><center>`;
+    for(pieceCount = i=0;i<size*size;)
+        o +=
+            `<span style=color:hsl(${-40*playArea[i]},${
+            playArea[i]>0 ? pieceCount = 80 : 0}%,${
+            playArea[i]>0 ? 50 : 9-playArea[i]*46}%)>${ 
+            (playArea[i]>0 ? playArea[i] : `·#☻`[-playArea[i]] )
+            }</span>${++i % size ? `` : `\n`}`;
+            
+    B.innerHTML = o + '<span style=color:#fff>' + level;
     
-    playerControls = [0,0,0,0];
-},16);
+    controls = [0,0,0,0];
+}, 16);
+
+let level = 0, pieceCount=0, controls=0, movePos=0, playArea = [];
+
+R=x=>(Math.random()*1e9|0)%x;
 
 // check if it is possible to get to player pos
-C=function(x,y)
-{
-    return playAreaFill[size*y+x]?0:
-        x == playerX && y == playerY?1:
-        (playAreaFill[size*y+x] = 1)&C(x+1,y)|C(x-1,y)|C(x,y-1)|C(x,y+1);
-}
+C =(x, y)=> playAreaFill[size*y+x] ? 0 : x == playerX & y == playerY ||
+    (playAreaFill[size*y+x] = 1)&C(x+1,y)|C(x-1,y)|C(x,y-1)|C(x,y+1);
         
-b.onkeydown = function(x,y) {playerControls[x.keyCode%37]=1;}
-R=function(x,y){return Math.floor(Math.random() * 1E6) % x;}
+onkeydown = x=> controls[x.keyCode-37] = 10;
 
-/*
-********************
-* * * * * * * * * **
-**  **  **  **  ** *
-*   *   *   *   *  *
-****    ****    ****
-* *     * *     * **
-**      **      ** *
-*       *       *  *
-******** 1      ****
-* * * *         * **
-**  **          ** *
-*   *    1      *  *
-****            ****
-* *             * **
-**              ** *
-*               *  *
-******* ********   *
-* * * * * * * *    *
-**  ** ☻**  **     *
-********************
-*/
-           
+// remove from minified
+let size, playerX, playerY, playAreaFill, rewind, moveOffset;
+
 </script>
-</body>
-</html>
