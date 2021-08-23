@@ -2,7 +2,7 @@
 
 This is a small collection of the best 1k JavaScript programs I have made.
 
-They use the [JS1k](https://js1k.com/) rules to fit into 1k, so a small shim is not included in the size.
+Some of these use the [JS1k](https://js1k.com/) rules for 1k, so a small shim is not included in the size.
 
 ## [Batafuraiko](https://killedbyapixel.github.io/1k/Batafuraiko) - Retro style shoot-em-up
 
