@@ -1,0 +1,215 @@
+<!--
+
+
+-->
+<html>
+<head><title>demo</title></head>
+<body id=b style=margin:0><canvas id=a>
+<script>
+
+// js1024 shim
+'use strict';
+a.width = innerWidth;
+a.height = innerHeight;
+const c = a.getContext("2d");
+const d = document;
+
+//////////////////////////////////////////////////////////////////
+</script>
+
+<script>
+
+/*
+
+U1KE - Copyright Frank Force 2022
+
+A Ukulele in 1K of JavaScript. Use the keyboard to fret notes and the mouse to strum. To build 1K version use Google Closure Compiler, Terser, and RegPack.
+
+HOW TO PLAY
+
+Hold keys to fret notes.
+Use mouse to strum.
+Chrome recommended for best results.
+
+BASIC CHORD LIST
+
+A = Q2
+B = ZSER
+C = F
+D = QWE
+E = 1XR
+F = Q3
+G = WDR
+
+Am = Q
+Bm = ZWER
+Cm = SDF
+Dm = QW3
+Em = XDR
+Fm = 13F
+Gm = WD4
+
+EXAMPLE SONG
+
+C         Em
+Somewhere over the rainbow
+F      C
+Way up high
+F       C
+And the dreams that you dreamed of
+G              Am   F
+Once in a lullaby
+
+*/
+
+'use strict';
+
+// shim variables
+a, b, c, d;
+
+// control variables
+const noteRingTime = 2;
+const rootFrequency = 220;
+const stringCount = 4;
+const fretCount = 12;
+const fretRatio = 17;
+const neckWidth = 60;
+const holeRadius = 180;
+const harmonics = 8;
+const keyboardSize = 4;
+const keyboardMap = '4RFV3EDC2WSX1QAZ';
+
+// all variables
+let frame, i, j, k, x, y, f, g, 
+    mouseDown, mx, mxLast,
+    strings, keys, A;
+
+// init variables that need it
+strings = [frame = mouseDown = mx = 0];
+keys = [A = new AudioContext];
+
+// main game loop
+setInterval(_=>
+{
+    // background
+    c.fillRect(0, 0, a.width = innerWidth, a.height = innerHeight, c.fillStyle = '#26a');
+
+    // neck
+    c.fillRect(x = innerWidth/2 - neckWidth*stringCount/2|0, 0, neckWidth*stringCount, innerHeight, 
+        c.fillStyle = '#421');
+
+    // circular hole
+    c.arc(x + neckWidth*stringCount/2, innerHeight - holeRadius, holeRadius, 0, 9);
+    c.fillStyle = '#000';
+    c.fill();
+
+    // offset first string from side
+    x += neckWidth/2;
+
+    // for each string
+    for (i = stringCount; i--;)
+    {
+        // draw frets
+        for (f = y = j = 0; j < fretCount; ++j)
+        {
+            // update y position
+            y += (innerHeight - y) / fretRatio;
+
+            // draw fret
+            c.fillRect(x - neckWidth/2, y, neckWidth, 9, c.fillStyle = '#999');
+
+            // check if held down
+            if (j < keyboardSize && keys[keyboardMap[i*keyboardSize+j]])
+                f = y;
+        }
+
+        // update string
+        if (frame)
+            strings[i].a *= .99; // reduce visible string amplitude
+        else
+            strings[i] = {a:0, y, f, o:[], g:[]}; // create string
+
+        // draw the string
+        for (j = 0; j < innerHeight; j += 4)
+        {
+            // get visual representation of string thickness
+            g = [3,6,8,4][i];
+
+            // draw this part of the string
+            c.fillRect(x - g/2 + 
+                (j > f)                                             // above held fret
+                * (strings[i].a*99*Math.sin((j - f)/innerHeight*3)) // amplitude
+                * Math.sin(j*strings[i].y/2e3 + frame),             // frequency
+                j, g, 4,                                            // y, w, h
+                c.fillStyle = `hsl(${i*90 + f/6} 99%${99 - strings[i].a*1e3}%)`); // color
+        }
+
+        // draw which frets/keys are held down
+        for (f = y = j = 0; j < fretCount; ++j)
+        {
+            // update y position
+            y += g = (innerHeight - y) / fretRatio;
+
+            // check if held down
+            if (j < keyboardSize & keys[keyboardMap[i*keyboardSize + j]])
+            {
+                // draw where the fret is held
+                c.fillRect(x - neckWidth/2, y - g, neckWidth, g, c.fillStyle = '#fff');
+
+                // store the highest fretted note
+                f = j + 1;
+            }
+        }
+
+        // play notes when plucked or if fret changes
+        for (k = harmonics; k-- &&
+            (strings[i].f != f || mouseDown && mxLast < x & mx >= x | mxLast > x & mx <= x);)
+        {
+            if (!strings[i].o[k])
+            {
+                // setup oscillator and gain nodes
+                strings[i].o[k] = A.createOscillator();
+                strings[i].o[k].connect(strings[i].g[k] = A.createGain()).connect(A.destination);
+                strings[i].o[k].start(strings[i].g[k].gain.value = 0);
+            }
+
+            // set frequency and amplitude
+            const delay = .03; // a small delay to help audio clicking in firefox
+            strings[i].g[k].gain.cancelScheduledValues(A.currentTime + delay);
+            strings[i].g[k].gain.linearRampToValueAtTime(strings[i].g[k].gain.value, A.currentTime + delay);
+            if (strings[i].f == f)
+            {
+                // set frequency and amplitude for this harmonic
+                strings[i].o[k].frequency.value = strings[i].y 
+                    = (k ? k : .5)                  // harmonic
+                    * rootFrequency                 // A root
+                    * 2**((f + [12,7,3,10][i])/12); // string tuning and note formula
+                strings[i].a = Math.min(Math.abs(mxLast - x)/99 + .05, .25)/(k ? k**3 : 4); 
+
+                // set gain envelope
+                strings[i].g[k].gain.linearRampToValueAtTime(strings[i].a, A.currentTime + (delay + .01));
+                strings[i].g[k].gain.linearRampToValueAtTime(strings[i].a/2, A.currentTime + (delay + .04));
+                strings[i].g[k].gain.linearRampToValueAtTime(strings[i].a/4, A.currentTime + .4);
+                strings[i].g[k].gain.linearRampToValueAtTime(0, A.currentTime + noteRingTime);
+            }
+            else
+            {
+                // don't change frequency when fret changes, just fade out sound
+                strings[i].g[k].gain.linearRampToValueAtTime(strings[i].a = 0, A.currentTime + .3);
+            }
+        }
+        
+        strings[i].f = f;  // update fret for this string
+        x += neckWidth;    // move position to next string
+    }
+
+    mxLast = mx; // save last mouse pos
+    ++frame;     // advance time
+    
+    // input
+    onkeydown = e=> keys[e.key.toUpperCase()] = 1;
+    onkeyup   = e=> keys[e.key.toUpperCase()] = 0;
+    onmousemove = e=> { mouseDown = e.buttons & 1; mx = e.x; }
+}, 
+9); // update
+</script>
