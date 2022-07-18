@@ -6,9 +6,9 @@ Some of these use the [JS1k](https://js1k.com/) rules for 1k, so a small shim is
 
 ## [Batafuraiko](https://killedbyapixel.github.io/1k/Batafuraiko) - Retro style shoot-em-up
 
-## [1Keys](https://github.com/KilledByAPixel/1Keys) - Tiny 3 Instrument Piano
+## [1Keys](https://killedbyapixel.github.io/1Keys) - Tiny 3 Instrument Piano
 
-## [U1KE](https://github.com/KilledByAPixel/1k/U1KE) - A Playable Ukulele Simulation
+## [U1KE](https://killedbyapixel.github.io/1k/U1KE) - A Playable Ukulele Simulation
 
 ## [Digilemma](https://killedbyapixel.github.io/1k/Digilemma) - A Digital Dilemma of Devious Difficulty
 
