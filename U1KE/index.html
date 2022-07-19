@@ -141,7 +141,7 @@ setInterval(_=>
                 * (strings[i].a*99*Math.sin((j - f)/innerHeight*3)) // amplitude
                 * Math.sin(j*strings[i].y/2e3 + frame),             // frequency
                 j, g, 4,                                            // y, w, h
-                c.fillStyle = `hsl(${i*90 + f/6} 99%${99 - strings[i].a*1e3}%)`); // color
+                c.fillStyle = `hsl(${i*90 + f/6} 99%${99 - strings[i].a*500}%)`); // color
         }
 
         // draw which frets/keys are held down
@@ -184,7 +184,7 @@ setInterval(_=>
                     = (k ? k : .5)                  // harmonic
                     * rootFrequency                 // A root
                     * 2**((f + [12,7,3,10][i])/12); // string tuning and note formula
-                strings[i].a = Math.min(Math.abs(mxLast - x)/99 + .05, .25)/(k ? k**3 : 4); 
+                strings[i].a = Math.min(Math.abs(mxLast - x)/99 + .05, .25)/(k ? k*k : 3); 
 
                 // set gain envelope
                 strings[i].g[k].gain.linearRampToValueAtTime(strings[i].a, A.currentTime + (delay + .01));
