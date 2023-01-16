@@ -1,117 +1,128 @@
 <!--
-
-MinBytes - A Minimal Bytebeat Album in 1k
-Created by Frank Force 2019
-License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
-
--->
+// MinBytes - A Minimal Bytebeat Album in 1k
+// Created by Frank Force 2019
+// License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+-->   
+    
+<!doctype html>
 <html>
 <head>
-<title>MinBytes - A Minimal Bytebeat Album in 1k</title>
+<title>MinBytes - A Minimal ByteBeat Album/Demo By Frank Force 2019</title>
 <meta charset="utf-8">
 </head>
-<body style="background-color:#000;margin:0">
-<canvas id=a></canvas>
+<body style="background-color:#000;">
+<canvas id='canvas' style='position:absolute; left:0px; top:0px; width:100%; height:100%'></canvas>
 <script>
+ ///////////////////////////////////////////////////////////////////////  
 
-// init shim variables 
-const d = document;
-const b = d.body;
-const c = a.getContext('2d');
-b.onresize=_=>{ a.width = innerWidth; a.height = innerHeight; }
-b.onresize();
+// js1k shim variables    
+d = document; b = d.body; a = d.getElementById('canvas'); c = a.getContext('2d');
 
-// songs
-A=(
-   f, // audio function
-   r, // sample rate
-   e, // star speed
-   n  // name
-   )=>
-{
-    // draw actor
-    c.font = h+"px'";
-    c.fillStyle=`hsl(${t/5},99%,${++i-C&&i?95:50}%)`
-    c.fillText(i?i+". "+n:F?F:n,x,y+h/3);
-    //c.strokeText((i?i+". ":"") + n,x,y+h/3);
-    //c.strokeStyle ="#F00";c.strokeRect(x-180,y-h/2,360,h); // hitbox debug
-    
-    if ((Math.abs(M - x) < 180 && Math.abs(Y - y) < h/2 || i == N))
-    {
-        S&&S.stop(); // stop last song
-        
-        // init song
-        F=f; // function
-        N=-1; // wait for song to end
-        E=e; // star speed
-        
-        if (C=i)
-        {
-            // fill buffer with music
-            S=X.createBufferSource();
-            S.buffer=X.createBuffer(1,r*100,R=r);
-            B=S.buffer.getChannelData(0);
-            B.set(B.map((_,t)=>(e=f(t)*2-1,e>1?.3:e*.3)));
-            //B.set(B.map((_,t)=>(e=f(t),e=e>1?1:e,e-.5)));
-            S.connect(X.destination);
-            S.start();
-            u=Date.now();
-        }
-    }
-    y+=h; // next line
-}
+// fit canvas to window when resized
+b.onresize=_=>{ a.width = window.innerWidth; a.height = window.innerHeight; }
+b.onresize()
+
+// 1024
+//for(_="ufferqa.widthzz/2~t<<H--;Gt=>QonP1,4,i)t(1e5},99%,c.fillStyle=`hsl(${20*ia.heighti*I*/i=0,te][it>>e3,&&Math.abs(	=Da.now(for(),Rec,Qt=A.creaBq','&setInrval($=Q{'#0008',z,c.xtAlign='cenr',3e3;iG(i**3.5%9-T*%z*2-9,i%,D=i%D))85%`;32;F>tiG~-42)){D=R/10;DG)I+=(F(t*R/3+D)&1<<>>i;I*=9/R,50%,.1`}t0)-u,F<t-2e3?C=N=C-9?C+1:0:T+=E/5y=h=99;i<10;)(	M-~)<180	Y-y)<h/2||=N)(SS.stop(F=[08114&H49&9*t&Ht/4>>9%(9&t)6&95&131*t&(H8^5)],N=-E=[2,3,5,3,9,99],(C=(SSource(R=r=[,5e55,3]n(4e5,4e4B=n.getChannelData(0B.seB.map((e,=>(F(i*r/4e4|0)-1)>1?.3:.3*S.bq=n,S.cPnecA.destinatiPuS.star)))c.fPt=h+`px'`,t/5${i-Ci?95:50}%`,Tex(i?i+'. ':'')+[F||'𝓜𝓲𝓷𝓑𝔂𝓽𝓮𝓼TAKEOFFBINARYDENSITYTWINKLERUMBLENEBULASIDEREALZODIACFTL'++],~,y+h/3y+=h,h=50;I=M=0},16Pclick=Q{M=t.x,Y=t.y},A=new AudioCPxt,S=M=C=N=F=T=E=u=0";G=/[-PQGH~zq]/.exec(_);)with(_.split(G))_=join(shift());eval(_)
 
 // main game loop
-setInterval(G=_=> // loop
+setInterval(G=t=> // loop
 {
     // black background
-    c.fillStyle="#0008";
-    c.fillRect(0,0,a.width,a.height);              
+    c.fillStyle = `#0008`;
+    c.fillRect(0, 0, a.width, a.height);              
     //c.strokeStyle="#F00";c.strokeRect(a.width/2-1280/2,0,1280,720);  // debug 720p
     
-    c.textAlign="center"; // center text
+    c.textAlign = `center`; // center text
     
     // stars effect
-    for(i=3e3;i--;c.fillRect((Math.sin(i)*1e9-T*i)%a.width*2-9,i*9%a.height,j=i%4,j))c.fillStyle=`hsl(${i*20},99%,85%)`;
+    for(i=3e3; i--; c.fillRect((i**3.5%1e9-T*i)%a.width*2-9,i%a.height,j=i%4,j))
+        c.fillStyle=`hsl(${i*20},99%,85%`;
         
     // visualizer
-    for(i=32;F&&1e5>t&&i--;c.fillRect(a.width/2-i*q*a.height/40,0,i*q*a.height/20,a.height))
+    for(i=32; F&&1e5>t&&i--; c.fillRect(a.width/2-i*q*a.height/40,0,i*q*a.height/20,a.height))
     {
-        for(j=R/10;j--;)q+=(F(t*R/1e3+j)&1<<i)>>i
-        q/=R/9;
-
-        c.fillStyle=`hsl(${i*20},99%,50%,.1)`
+        for(j=R/10; j--;)
+            q += (F(t*R/1e3+j)&1<<i)>>i
+        
+        q *= 9/R;
+        c.fillStyle = `hsl(${i*20},99%,50%,.1`
     }
     
     // update time
-    t=Date.now()-u;
-    
-    F&&1e5<t-2e3?C=N=C-9?C+1:0:T+=E/5e3; // advance to next song & update stars
+    t = Date.now(i=0)-u;
+    F&&1e5<t-2e3 ? C=N=C-9 ? C+1 : 0 : T+=E/5e3; // advance to next song & update stars
     
     // track select menu
-    x=a.width/2;
-    y=h=99;
-    i=-1;
-    A(0,0,.5,                 "𝓜𝓲𝓷𝓑𝔂𝓽𝓮𝓼"); // title + reset mouse & vizualizer
-    h=50;
-    A(t=>t&t>>8,          1e5, 2, "TAKEOFF");
-    A(t=>t&t>>11,         1e4, 1, "BINARY");
-    A(t=>t&t>>4&t<<4,     1e4, 4, "DENSITY");
-    A(t=>t&t>>9&(9*t),    5e4, 1, "TWINKLE");
-    A(t=>t&t<<t/4>>9,     5e3, 3, "RUMBLE");
-    //A(t=>t%(t>>9&t),      5e3, 5, "NEBULA");
-    A(t=>t&t>>6&t>>9,     1e5, 3, "SIDEREAL");
-    A(t=>t&t>>5&t*131,    3e3, 9, "ZODIAC");
-    A(t=>t&(t<<8^t>>5),   1e5, 99,"FTL");
-    
+    for(y = h=99; i < 10;)
+    {
+        if ((Math.abs(M - a.width/2) < 180 && Math.abs(Y - y) < h/2 || i == N))
+        {
+            S&&S.stop(); // stop last song
+            
+            // init song
+            F =
+            [
+                0,
+                t=>t&t>>8,
+                t=>t&t>>11,
+                t=>t&t>>4&t<<4,
+                t=>t&t>>9&(9*t),
+                t=>t&t<<t/4>>9,
+                t=>t%(t>>9&t),   
+                t=>t&t>>6&t>>9,  
+                t=>t&t>>5&t*131, 
+                t=>t&(t<<8^t>>5)
+            ][i]; // function
+            N = -1; // wait for song to end
+            E = [1,2,1,4,1,3,5,3,9,99][i]; // star speed
+            
+            if (C = i)
+            {
+                // fill buffer with music
+                S = X.createBufferSource(R=r=[0,1e5,1e4,1e4,5e4,5e3,5e3,1e5,3e3,1e5][i]);
+                n = X.createBuffer(1,4e6,4e4);
+                B = n.getChannelData(0);
+                B.set(B.map((_,t)=>(t = F(t*r/4e4|0)-1)>1 ? .3 : t*.3));
+                S.buffer = n;
+                S.connect(X.destination);
+                u = Date.now(S.start());
+            }
+        }
+
+        // draw text
+        c.font = h+`px'`;
+        c.fillStyle = `hsl(${t/5},99%,${i-C&&i?95:50}%`
+        c.fillText((i?i+`. `:``) + 
+            [
+                F||`𝓜𝓲𝓷𝓑𝔂𝓽𝓮𝓼`,
+                `TAKEOFF`,
+                `BINARY`,
+                `DENSITY`,
+                `TWINKLE`,
+                `RUMBLE`,
+                `NEBULA`,
+                `SIDEREAL`,
+                `ZODIAC`,
+                `FTL`
+            ][i++],
+        a.width/2, y+h/3);
+        //c.strokeText((i?i+". ":"") + n,x,y+h/3);
+        //c.strokeStyle ="#F00";c.strokeRect(x-180,y-h/2,360,h); // hitbox debug
+        
+        y += h; // next line
+        h = 50; // smaller text
+    }
+
     q=M=0;
+
 },16);
     
 // input
-onclick=x=>{M=x.x;Y=x.y}
-    
+onclick=t=>{M=t.x;Y=t.y}
+
 // init 
-X=new AudioContext;
+X=new (window.AudioContext || webkitAudioContext);
 S=M=C=N=F=T=E=u=i=0;
 
 </script>
