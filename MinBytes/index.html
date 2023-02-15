@@ -15,7 +15,7 @@
 <script>
  ///////////////////////////////////////////////////////////////////////  
 /*
-<canvas id=a><script>for(_="1equfferzeight~][eQt<<P--;q51,>>4,t(e=c.fillStyl},99%,`hsl(${20*ea.h~e*H*/teConxte3nne&&0,),	=Da.now(for(Rec,t=>t&=A.creaBz','a.widthtA=new Audio,S=M=N=F=T=E=u=Y=C=setInrval($=>{onclick=>Y=e.y,c=a.get`2d`,'#0008',H==irWidth,=irH~	c.xtAlign='cenr',2;e(e**3.5%q9-T*e)%*2-9,e%,D=e%D))85%`;32;F>te/2-42)){D=R/10;D)H+=(F(t*R/1+D)&1<<e)e;H*=9/R,50%,.1`}t0)-u,F<t-2?C=N=C-9?C+1:0:T+=[2,3,5,9,99][C]/5,y=h=99;e<9;)(Math.abs(Y-y)<h/2||=N)(Y=SS.stop(	F=[08114&P49&9*tPt/496&t95&131*t(P8^t5)Q],N=-(C=e)(SSource(R=r=[,qq5e5,,3,Q]	n(4e6,4e4	B=n.getChalData(0	B.seB.map((e,t)=>(t=F(t*r/4e4|0)-1)>1?.3:.3*t)	S.bz=n,S.cocA.destination	uS.star)))	c.font=h+`px'`,t/5${e-Ce?95:50}%`,Tex(e?e+'. ':'')+[F||'MINBYTESTAKEOFFBINARYDENSITYTWINKLERUMBLESIDEREALZODIACFTL'Q++],/2,y+h/3	y+=h,h=50},16)";G=/[-PQ~zq]/.exec(_);)with(_.split(G))_=join(shift());eval(_)
+X=new AudioContext,S=M=N=F=T=E=u=Y=C=0,setInterval(G=t=>{for(onclick=t=>Y=t.y,c=a.getContext`2d`,c.fillStyle="#0008",c.fillRect(q=0,0,a.width=innerWidth,a.height=innerHeight),c.textAlign="center",t=2e3;t--;c.fillRect((t*t%1e9-T*t)%a.width*2-9,t**3%a.height,j=t%4,j))c.fillStyle=`hsl(${20*t},99%,85%`;for(t=32;F&&1e5>z&&t--;c.fillRect(a.width/2-t*q*a.height/40,0,t*q*a.height/20,a.height)){for(j=R/10;j--;)q+=(F(z*R/1e3+j)&1<<t)>>t;q*=9/R,c.fillStyle=`hsl(${20*t},99%,50%,.1`}for(z=Date.now(t=0)-u,F&&1e5<z-2e3?C=N=C-9?C+1:0:T+=[1,2,1,4,1,3,5,9,99][C]/5e3,y=h=99;t<9;)(Math.abs(Y-y)<h/2||t==N)&&(Y=0,S&&S.stop(),F=[0,t=>t&t>>8,t=>t&t>>11,t=>t&t>>4&t<<4,t=>t&t>>9&9*t,t=>t&t<<t/4>>9,t=>t&t>>6&t>>9,t=>t&t>>5&131*t,t=>t&(t<<8^t>>5)][t],N=-1,(C=t)&&(S=X.createBufferSource(R=r=[0,1e5,1e4,1e4,5e4,5e3,1e5,3e3,1e5][t]),n=X.createBuffer(1,4e6,4e4),B=n.getChannelData(0),B.set(B.map((t,z)=>(z=F(z*r/4e4|0)-1)>1?.3:.3*z)),S.buffer=n,S.connect(X.destination),u=Date.now(S.start()))),c.font=h+"px'",c.fillStyle=`hsl(${z/5},99%,${t-C&&t?95:50}%`,c.fillText((t?t+". ":"")+[F||"MINBYTES","TAKEOFF","BINARY","DENSITY","TWINKLE","RUMBLE","SIDEREAL","ZODIAC","FTL"][t++],a.width/2,y+h/3),y+=h,h=50},9)
 */
 
 // js1k shim variables    
@@ -35,20 +35,19 @@ setInterval(G=i=> // loop
     // input
     onclick=t=>Y=t.y
     
-
     c = a.getContext`2d`
     c.fillStyle = `#0008`;
-    c.fillRect(q=0, 0, a.width = innerWidth, a.height= innerHeight);              
+    c.fillRect(q=0, 0, W = a.width = innerWidth, H = a.height = innerHeight);              
     //c.strokeStyle="#F00";c.strokeRect(a.width/2-1280/2,0,1280,720);  // debug 720p
     
     c.textAlign = `center`; // center text
     
     // stars effect
-    for(i=2e3; i--; c.fillRect((i**3.5%1e9-T*i)%a.width*2-9,i%a.height,j=i%4,j))
+    for(i=2e3; i--; c.fillRect((i-T)*i%W*2-9,i*i%H,j=i%4+1,j))
         c.fillStyle=`hsl(${i*20},99%,85%`;
         
     // visualizer
-    for(i=32; F&&1e5>t&&i--; c.fillRect(a.width/2-i*q*a.height/40,0,i*q*a.height/20,a.height))
+    for(i=32; F&&1e5>t&&i--; c.fillRect(W/2-i*q*H/40,0,i*q*H/20,H))
     {
         for(j=R/10; j--;)
             q += (F(t*R/1e3+j)&1<<i)>>i
@@ -59,7 +58,7 @@ setInterval(G=i=> // loop
     
     // update time
     t = Date.now(i=0)-u;
-    F&&1e5<t-2e3 ? C=N=C-9 ? C+1 : 0 : T+=[1,2,1,4,1,3,5,9,99][C]/5e3; // advance to next song & update stars
+    F&&1e5<t-2e3 ? C=N=C-9 ? C+1 : 0 : T+=[1,4,q*7+1,9,-1,5,-9,19,99][C]/5e3; // advance to next song & update stars
     
     // track select menu
     for(y = h=99; i < 9;)
@@ -113,7 +112,7 @@ setInterval(G=i=> // loop
                 `ZODIAC`,
                 `FTL`
             ][i++],
-        a.width/2, y+h/3);
+        W/2, y+h/3);
         //c.strokeText((i?i+". ":"") + n,x,y+h/3);
         //c.strokeStyle ="#F00";c.strokeRect(x-180,y-h/2,360,h); // hitbox debug
         
@@ -121,7 +120,7 @@ setInterval(G=i=> // loop
         h = 50; // smaller text
     }
 
-},16);
+},9);
 
 </script>
 </body>
