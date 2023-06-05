@@ -15,7 +15,7 @@ These tiny demos all fit in self contained 256 byte HTML files.
 
 # 1 Kilobyte Demos
 
-Some of these use the [JS1k](https://js1k.com) rules for 1k, so a small shim is not included in the size.
+Some of these use the [JS1k](https://js1k.com) rules, so a small shim is not included in the size.
 
 ## [Batafuraiko](https://killedbyapixel.github.io/TinyCode/1K/Batafuraiko) - Retro style shoot-em-up
 ## [1Keys](https://killedbyapixel.github.io/1Keys) - Tiny 3 Instrument Piano
