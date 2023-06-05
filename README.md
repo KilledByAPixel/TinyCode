@@ -26,7 +26,6 @@ Some of these use the [JS1k](https://js1k.com) rules for 1k, so a small shim is 
 ## [Min Bytes](https://killedbyapixel.github.io/TinyCode/1K/MinBytes) - Bytebeat Album With 8 Tracks
 ## [Lightning Storm](https://killedbyapixel.github.io/TinyCode/1K/LightningStorm) - Simulation of a storm with rain, lightning and sound
 ## [ZzFX](https://killedbyapixel.github.io/TinyCode/1K/ZzFX) - Zuper Zmall Zeeded Zound Zynth
-## [Infinite Yin Yangs](https://killedbyapixel.github.io/TinyCode/1K/InfiniteYinYangs) - Yin Yang Fractal Zoom
 
 # 2 Kilobyte Demos
 
