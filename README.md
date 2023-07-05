@@ -4,7 +4,7 @@ Please enjoy this small collection of the best tiny JavaScript/HTML programs I h
 
 These tiny demos all fit in self contained 256 byte HTML files.
 
-## [City in a Bottle](https://killedbyapixel.github.io/TinyCode/256B/CityInABottle) - Tiny raycasted city (click to start)
+## [City in a Bottle](https://killedbyapixel.github.io/TinyCode/256B/CityInABottle) - Tiny raycasted city with shadows
 ## [Bloodstream](https://killedbyapixel.github.io/TinyCode/256B/Bloodstream) - 3D blood cells tunnel
 ## [Doodle Structures](https://killedbyapixel.github.io/TinyCode/256B/DoodleStructures) - Continuous doodling
 ## [Gas Rainbow](https://killedbyapixel.github.io/TinyCode/256B/GasRainbow) - Colorful motion effects
