@@ -5,6 +5,7 @@ Please enjoy this small collection of the best tiny JavaScript/HTML programs I h
 These tiny demos all fit in self contained 256 byte HTML files.
 
 ## [Bitwise Liminal](https://killedbyapixel.github.io/TinyCode/256B/BitwiseLiminal) - A short film of CCTV footage
+![LittleJS Screenshot](256B/BitwiseLiminal/screenshot.gif)
 ## [Micro Marathon](https://killedbyapixel.github.io/TinyCode/256B/MicroMarathon) - Animated running people
 ## [City in a Bottle](https://killedbyapixel.github.io/TinyCode/256B/CityInABottle) - Tiny raycasted city with shadows
 ![LittleJS Screenshot](256B/CityInABottle/screenshot.gif)
