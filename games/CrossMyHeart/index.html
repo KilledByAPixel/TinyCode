@@ -1,1 +1,31 @@
 <pre id=b><script>X=Y=V=U=Z=t=1;onkeydown=e=>(k=e.which)&1?X-=k-38:Y-=k-39;setInterval("for(++t,o=Z,i=50;i--;)for(b.innerText=o+='\\n',j=99;j--;Y>49?Z+=Y=1:o+=i-Y|j-X-50?q?'.':'█':q?'♥':Y=1)q=((j+t*Math.sin(A=i>>1)/9*Z>>3)*A*Z)**4%97<89",9)</script>
+</svg></canvas>
+
+</pre><pre>
+CROSS MY HEART - Frogger Demake in 256 Bytes
+By KilledByAPixel 2024 
+
+How to Play
+- You control a heart starting at the bottom
+- Use only arrow keys to move
+- Move to the top to advance to next level
+- Each new level gets harder/faster
+- When hit by car you return to bottom
+- Level is shown in top left
+- Do not press any other keys
+- Do not move off the left or right side
+- How far can you get?
+<script>
+
+const onkeydownOrignal = onkeydown
+onkeydown=e=>
+{
+    // prevent non arrow keys
+    const key = e.which
+    if (key<37 || key>40)
+        return;
+
+    // call orignal keydown
+    onkeydownOrignal(e)
+}
+</script>
