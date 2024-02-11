@@ -13,7 +13,7 @@ These tiny demos all fit in self contained 256 byte HTML files.
 
 # 256 Byte Games
 
-## [Minesweeper](https://killedbyapixel.github.io/TinyCode/games/CrossMyHeart) - Frogger Game
+## [Cross My Heart](https://killedbyapixel.github.io/TinyCode/games/CrossMyHeart) - Frogger Game
 ## [BitBall](https://killedbyapixel.github.io/TinyCode/games/BitBall) - Baseball Batting Practice
 ## [Wolf 256](https://killedbyapixel.github.io/TinyCode/games/Wolf256) - Interactive 3D Maze Explorer
 ## [My Heart Jumped](https://killedbyapixel.github.io/TinyCode/games/MyHeartJumped) - Jumping Game
