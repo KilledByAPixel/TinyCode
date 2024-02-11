@@ -27,6 +27,7 @@ These tiny demos all fit in self contained 256 byte HTML files.
 
 Some of these use the [JS1k](https://js1k.com) rules, so a small shim is not included in the size.
 
+## [Heartstring Debuger](https://killedbyapixel.github.io/TinyCode/1K/HeartstringDebugger) - Music synth and visuals
 ## [Batafuraiko](https://killedbyapixel.github.io/TinyCode/1K/Batafuraiko) - Retro style shoot-em-up
 ## [1Keys](https://killedbyapixel.github.io/1Keys) - Tiny 3 Instrument Piano
 ## [Lu1ky Pinball](https://killedbyapixel.github.io/TinyCode/1K/Lu1kyPinball) - A tiny pinball physics game
