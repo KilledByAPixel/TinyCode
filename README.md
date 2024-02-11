@@ -5,13 +5,23 @@ Please enjoy this small collection of the best tiny JavaScript/HTML programs I h
 These tiny demos all fit in self contained 256 byte HTML files.
 
 ## [City in a Bottle](https://killedbyapixel.github.io/TinyCode/256B/CityInABottle) - Tiny raycasted city with shadows
+![LittleJS Screenshot](256B/CityInABottle/screenshot.gif)
 ## [Bloodstream](https://killedbyapixel.github.io/TinyCode/256B/Bloodstream) - 3D blood cells tunnel
 ## [Doodle Structures](https://killedbyapixel.github.io/TinyCode/256B/DoodleStructures) - Continuous doodling
 ## [Gas Rainbow](https://killedbyapixel.github.io/TinyCode/256B/GasRainbow) - Colorful motion effects
 ## [Fireworks](https://killedbyapixel.github.io/TinyCode/256B/Fireworks) - A fireworks display
-## [Wolf 256](https://killedbyapixel.github.io/TinyCode/256B/Wolf256) - Interactive 3d maze explorer
-## [My Heart Jumped](https://killedbyapixel.github.io/TinyCode/256B/MyHeartJumped) - Jumping Game
-## [Minesweeper](https://killedbyapixel.github.io/TinyCode/256B/Minisweeper) - Minesweeper Game
+
+# 256 Byte Games
+
+## [Cross My Heart](https://killedbyapixel.github.io/TinyCode/games/CrossMyHeart) - Frogger Game
+## [BitBall](https://killedbyapixel.github.io/TinyCode/games/BitBall) - Baseball Batting Practice
+## [Wolf 256](https://killedbyapixel.github.io/TinyCode/games/Wolf256) - Interactive 3D Maze Explorer
+## [My Heart Jumped](https://killedbyapixel.github.io/TinyCode/games/MyHeartJumped) - Jumping Game
+## [Minesweeper](https://killedbyapixel.github.io/TinyCode/games/Minisweeper) - Minesweeper Game
+
+# 512 Byte Demos
+
+## [Mountain Run](https://killedbyapixel.github.io/TinyCode/512B/MountainRun) - Parallax Landscape with Running
 
 # 1 Kilobyte Demos
 
