@@ -10,6 +10,14 @@ These tiny demos all fit in self contained 256 byte HTML files.
 ## [Gas Rainbow](https://killedbyapixel.github.io/TinyCode/256B/GasRainbow) - Colorful motion effects
 ## [Fireworks](https://killedbyapixel.github.io/TinyCode/256B/Fireworks) - A fireworks display
 
+# 256 Byte Games
+
+## [Minesweeper](https://killedbyapixel.github.io/TinyCode/games/CrossMyHeart) - Frogger Game
+## [Minesweeper](https://killedbyapixel.github.io/TinyCode/games/BitBall) - Baseball Batting Practice
+## [Wolf 256](https://killedbyapixel.github.io/TinyCode/games/Wolf256) - Interactive 3D Maze Explorer
+## [My Heart Jumped](https://killedbyapixel.github.io/TinyCode/games/MyHeartJumped) - Jumping Game
+## [Minesweeper](https://killedbyapixel.github.io/TinyCode/games/Minisweeper) - Minesweeper Game
+
 # 512 Byte Demos
 
 ## [Minesweeper](https://killedbyapixel.github.io/TinyCode/512B/MountainRun) - Mountain Run
