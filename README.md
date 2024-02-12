@@ -41,8 +41,8 @@ Some of these use the [JS1k](https://js1k.com) rules, so a small shim is not inc
 ## [♛ Queen's Gambit](https://killedbyapixel.github.io/TinyCode/1K/QueensGambit) - Mashup of Robotron and Chess
 ## [🎴 FreeCell 1k](https://killedbyapixel.github.io/TinyCode/1K/FreeCell1k) - FreeCell Solitaire
 ## [🚀 Min Bytes](https://killedbyapixel.github.io/TinyCode/1K/MinBytes) - Bytebeat Album With 8 Tracks
-## [⛈️ Lightning Storm](https://killedbyapixel.github.io/TinyCode/1K/LightningStorm) - Storm Simulation with Rain, Lightning and Sound
-## [🔊 ZzFX](https://killedbyapixel.github.io/TinyCode/1K/ZzFX) - Zuper Zmall Zeeded Zound Zynth
+## [⛈️ Lightning Storm](https://killedbyapixel.github.io/TinyCode/1K/LightningStorm) - Storm Simulation with Rain, Lightning, and Sound
+## [🔊 ZzFX](https://killedbyapixel.github.io/TinyCode/1K/ZzFX) - A Tiny JavaScript Sound FX System
 
 # 2 Kilobyte Demos
 
