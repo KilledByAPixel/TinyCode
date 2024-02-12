@@ -55,7 +55,7 @@ Some of these use the [JS1k](https://js1k.com) rules, so a small shim is not inc
 
 # And more...
 
-## [💾 JavaScript Haikus](https://youtu.be/HV7Dmo277Rs?si=BosCO8THeLqZpgKt) - A 20 Minute JavaScript Size Coding Talk
+## [💾 JavaScript Haikus](https://youtu.be/HV7Dmo277Rs?si=BosCO8THeLqZpgKt) - My 20 Minute JS Size Coding Talk
 ## [👾 My Dwitter Programs](https://dweetview.3d2k.com/?user=KilledByAPixel) - 140 Character JavaScript Programs
 ## [🕹️ My Games on Newgrounds](https://killedbyapixel.newgrounds.com/) - Play in Browser or on Mobile Devices
 ## [✌️😄 My Dev Blog](https://frankforce.com/) - More Writeups and Cool Stuff
