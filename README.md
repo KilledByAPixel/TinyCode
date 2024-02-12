@@ -47,6 +47,7 @@ Some of these use the [JS1k](https://js1k.com) rules, so a small shim is not inc
 # 2 Kilobyte Demos
 
 ## [🌲 Hue Jumper](https://killedbyapixel.github.io/HueJumper2k/) - 3D Racing Game with Generated Levels
+- [Technical Writeup for Hue Jumper 2K racing game](https://frankforce.com/hue-jumper-low-fi-retro-inspired-endless-runner-in-only-2-kilobytes/)
 
 # And more...
 
