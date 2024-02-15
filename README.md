@@ -1,5 +1,9 @@
 Please enjoy this small collection of the best tiny JavaScript/HTML programs I have made.
 
+# 128 Byte Demos
+
+## [💔 Heart Attack 128](https://killedbyapixel.github.io/TinyCode/128B/HeartAttack128) - Crazy Small Visual Demo
+
 # 256 Byte Demos
 
 These tiny demos all fit in self contained 256 byte HTML files.
@@ -9,6 +13,7 @@ These tiny demos all fit in self contained 256 byte HTML files.
 ## [🏃 Micro Marathon](https://killedbyapixel.github.io/TinyCode/256B/MicroMarathon) - Animated People Running
 ## [🌆 City in a Bottle](https://killedbyapixel.github.io/TinyCode/256B/CityInABottle) - Tiny Raycasted City with Shadows
 ![LittleJS Screenshot](256B/CityInABottle/screenshot.gif)
+- [Also available as a 256 byte Shadertoy](https://www.shadertoy.com/view/7dccRj)
 ## [🩸 Bloodstream](https://killedbyapixel.github.io/TinyCode/256B/Bloodstream) - 3D Blood Cells Tunnel
 ## [🖋️ Doodle Structures](https://killedbyapixel.github.io/TinyCode/256B/DoodleStructures) - Continuous Doodling
 ## [⛽ Gas Rainbow](https://killedbyapixel.github.io/TinyCode/256B/GasRainbow) - Colorful Motion Effects
@@ -47,10 +52,11 @@ Some of these use the [JS1k](https://js1k.com) rules, so a small shim is not inc
 # 2 Kilobyte Demos
 
 ## [🌲 Hue Jumper](https://killedbyapixel.github.io/HueJumper2k/) - 3D Racing Game with Generated Levels
+- [Technical Writeup for Hue Jumper 2K racing game](https://frankforce.com/hue-jumper-low-fi-retro-inspired-endless-runner-in-only-2-kilobytes/)
 
 # And more...
 
-## [💾 JavaScript Haikus Video](https://youtu.be/HV7Dmo277Rs?si=BosCO8THeLqZpgKt) - My 20 Minute Talk About JavaScript Size Coding
-## [👾 My Dwitter Programs](https://dweetview.3d2k.com/?user=KilledByAPixel) - 140 Character JavaScript Programs
+## [💾 JavaScript Haikus](https://youtu.be/HV7Dmo277Rs?si=BosCO8THeLqZpgKt) - My 20 Minute JS Size Coding Talk
+## [👾 My Dwitter Programs](https://dweetview.3d2k.com/?user=KilledByAPixel&awesome=1) - 140 Character JavaScript Programs
 ## [🕹️ My Games on Newgrounds](https://killedbyapixel.newgrounds.com/) - Play in Browser or on Mobile Devices
 ## [✌️😄 My Dev Blog](https://frankforce.com/) - More Writeups and Cool Stuff
