@@ -12,8 +12,10 @@ These tiny demos all fit in self contained 256 byte HTML files.
 ![LittleJS Screenshot](256B/BitwiseLiminal/screenshot.gif)
 ## [🏃 Micro Marathon](https://killedbyapixel.github.io/TinyCode/256B/MicroMarathon) - Animated People Running
 ## [🌆 City in a Bottle](https://killedbyapixel.github.io/TinyCode/256B/CityInABottle) - Tiny Raycasted City with Shadows
-![LittleJS Screenshot](256B/CityInABottle/screenshot.gif)
+- [Technical Writeup for City in a Bottle - A 256 Byte Raycasting System](https://frankforce.com/city-in-a-bottle-a-256-byte-raycasting-system/)
 - [Also available as a 256 byte Shadertoy](https://www.shadertoy.com/view/7dccRj)
+
+![LittleJS Screenshot](256B/CityInABottle/screenshot.gif)
 ## [🩸 Bloodstream](https://killedbyapixel.github.io/TinyCode/256B/Bloodstream) - 3D Blood Cells Tunnel
 ## [🖋️ Doodle Structures](https://killedbyapixel.github.io/TinyCode/256B/DoodleStructures) - Continuous Doodling
 ## [⛽ Gas Rainbow](https://killedbyapixel.github.io/TinyCode/256B/GasRainbow) - Colorful Motion Effects
@@ -53,6 +55,20 @@ Some of these use the [JS1k](https://js1k.com) rules, so a small shim is not inc
 
 ## [🌲 Hue Jumper](https://killedbyapixel.github.io/HueJumper2k/) - 3D Racing Game with Generated Levels
 - [Technical Writeup for Hue Jumper 2K racing game](https://frankforce.com/hue-jumper-low-fi-retro-inspired-endless-runner-in-only-2-kilobytes/)
+
+# Disectng a Dweet
+
+A series of deep dives into how some of my Dwitter programs work.
+
+- [Dissecting A Dweet #1: Spiral JavaScript Quine](https://frankforce.com/disceting-a-dweet-spiral-quine/)
+- [Dissecting A Dweet #2: Spirograph Design Generator](https://frankforce.com/dissecting-a-dweet-spirograph-design-generator/)
+- [Dissecting A Dweet #3: Mini Black Hole](https://frankforce.com/dissecting-a-dweet-black-hole/)
+- [Dissecting A Dweet #4: Ring Weave](https://frankforce.com/dissecting-a-dweet-ring-weave/)
+- [Dissecting A Dweet #5: Strange Attractor](https://frankforce.com/dissecting-a-dweet-lorenz-attractor/)
+- [Dissecting A Dweet #6: Breaking Broke](https://frankforce.com/dissecting-a-dweet-breaking-broke/)
+- [Dissecting A Dweet #7: Parallax Mountains](https://frankforce.com/dissecting-a-dweet-parallax-mountains/)
+- [Dissecting A Dweet #8: Shattered Tunnel](https://frankforce.com/dissecting-a-dweet-8-shattered-tunnel/)
+- [Dissecting A Dweet #9: City Sunset](https://frankforce.com/dissecting-a-dweet-9-city-sunset/)
 
 # And more...
 
