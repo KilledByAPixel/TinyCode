@@ -1,4 +1,4 @@
-Please enjoy this small collection of the best tiny JavaScript/HTML programs I have made.
+Please enjoy this collection of the best tiny JavaScript/HTML programs I have made.
 
 # 128 Byte Demos
 
@@ -35,7 +35,7 @@ These tiny demos all fit in self contained 256 byte HTML files.
 
 # 1 Kilobyte Demos
 
-Some of these use the [JS1k](https://js1k.com) rules, so a small shim is not included in the size.
+Some of these use the [JS1k](https://js1k.com) rules, so a small shim may not be included in the size.
 
 ## [❤️🎻🐛 Heartstring Debuger](https://killedbyapixel.github.io/TinyCode/1K/HeartstringDebugger) - Music Synth and Visuals
 ## [🦋🌌 Batafuraiko](https://killedbyapixel.github.io/TinyCode/1K/Batafuraiko) - Retro Style Shoot-em-up
