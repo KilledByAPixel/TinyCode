@@ -41,8 +41,10 @@ Some of these use the [JS1k](https://js1k.com) rules, so a small shim may not be
 ## [🦋🌌 Batafuraiko](https://killedbyapixel.github.io/TinyCode/1K/Batafuraiko) - Retro Style Shoot-em-up
 ## [🎹 1Keys](https://killedbyapixel.github.io/1Keys) - Tiny 3 Instrument Piano
 - [Technical Writeup for 1Keys Piano](https://frankforce.com/1keys-how-i-made-a-keyboard-in-only-1kb-of-javascript/)
+
 ## [🍀⚫ Lu1ky Pinball](https://killedbyapixel.github.io/TinyCode/1K/Lu1kyPinball) - A Tiny Pinball Physics Game
 - [Technical Writeup for Luc1ky Pinball Game](https://frankforce.com/lu1ky-pinball-code-deep-dive/)
+
 ## [🎻 U1KE](https://killedbyapixel.github.io/TinyCode/1K/U1KE) - A Playable Ukulele Simulation
 ## [☻ Digilemma](https://killedbyapixel.github.io/TinyCode/1K/Digilemma) - A Digital Dilemma of Devious Difficulty
 ## [♛ Queen's Gambit](https://killedbyapixel.github.io/TinyCode/1K/QueensGambit) - Mashup of Robotron and Chess
