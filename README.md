@@ -13,7 +13,7 @@ Please enjoy this collection of the best tiny JavaScript/HTML programs I have ma
 
 These tiny demos all fit in self contained 256 byte HTML files.
 
-## [📼 Bitwise Liminal](256B/BitwiseLiminal) - Short Film of Simulated CCTV Footage
+## [📼 Bitwise Liminal](256B/BitwiseLiminal/index.html) - Short Film of Simulated CCTV Footage
 ![LittleJS Screenshot](256B/BitwiseLiminal/screenshot.gif)
 ## [🏃 Micro Marathon](256B/MicroMarathon) - Animated People Running
 ## [🌆 City in a Bottle](256B/CityInABottle) - Tiny Raycasted City with Shadows
