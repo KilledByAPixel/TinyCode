@@ -1,57 +1,64 @@
 Please enjoy this collection of the best tiny JavaScript/HTML programs I have made.
 
+# 64 Byte Demos
+
+## [🚶‍♂️ Mini Maze](64B/MiniMaze) - Port of the Commodore 64 Basic Program 
+
 # 128 Byte Demos
 
-## [💔 Heart Attack 128](https://killedbyapixel.github.io/TinyCode/128B/HeartAttack128) - Crazy Small Visual Demo
+## [💔 Heart Attack](128B/HeartAttack) - Crazy Small Visual Demo
+## [🔌 All My Circuits](128B/AllMyCircuits) - Tiny Circuitry Visuals
 
 # 256 Byte Demos
 
 These tiny demos all fit in self contained 256 byte HTML files.
 
-## [📼 Bitwise Liminal](https://killedbyapixel.github.io/TinyCode/256B/BitwiseLiminal) - A Short Film of CCTV Footage
+## [📼 Bitwise Liminal](256B/BitwiseLiminal) - Short Film of Simulated CCTV Footage
 ![LittleJS Screenshot](256B/BitwiseLiminal/screenshot.gif)
-## [🏃 Micro Marathon](https://killedbyapixel.github.io/TinyCode/256B/MicroMarathon) - Animated People Running
-## [🌆 City in a Bottle](https://killedbyapixel.github.io/TinyCode/256B/CityInABottle) - Tiny Raycasted City with Shadows
+## [🏃 Micro Marathon](256B/MicroMarathon) - Animated People Running
+## [🌆 City in a Bottle](256B/CityInABottle) - Tiny Raycasted City with Shadows
 - [Technical Writeup for City in a Bottle - A 256 Byte Raycasting System](https://frankforce.com/city-in-a-bottle-a-256-byte-raycasting-system/)
 - [Also available as a 256 byte Shadertoy](https://www.shadertoy.com/view/7dccRj)
 
 ![LittleJS Screenshot](256B/CityInABottle/screenshot.gif)
-## [🩸 Bloodstream](https://killedbyapixel.github.io/TinyCode/256B/Bloodstream) - 3D Blood Cells Tunnel
-## [🖋️ Doodle Structures](https://killedbyapixel.github.io/TinyCode/256B/DoodleStructures) - Continuous Doodling
-## [⛽ Gas Rainbow](https://killedbyapixel.github.io/TinyCode/256B/GasRainbow) - Colorful Motion Effects
-## [🎆 Fireworks](https://killedbyapixel.github.io/TinyCode/256B/Fireworks) - A Fireworks Display
-
+## [🩸 Bloodstream](256B/Bloodstream) - 3D Blood Cells Tunnel
+## [🖋️ Doodle Structures](256B/DoodleStructures) - Continuous Doodling
+## [⛽ Gas Rainbow](256B/GasRainbow) - Colorful Motion Effects
+## [🎆 Fireworks](256B/Fireworks) - Fireworks Display
+## [🔥 Fireplace](256B/Fireplace) - Fire Effect With CSS
+## [🔮 Blind Madness](256B/BlindMadness) - Random HD Isometric Artwork
+## [🏙️ City Ruins](256B/CityRuins) - Destroyed City
 # 256 Byte Games
 
-## [❤️ Cross My Heart](https://killedbyapixel.github.io/TinyCode/games/CrossMyHeart) - Frogger Game
-## [⚾ BitBall](https://killedbyapixel.github.io/TinyCode/games/BitBall) - Baseball Batting Practice
-## [🐺 Wolf 256](https://killedbyapixel.github.io/TinyCode/games/Wolf256) - Interactive 3D Maze Explorer
-## [💗 My Heart Jumped](https://killedbyapixel.github.io/TinyCode/games/MyHeartJumped) - Platforming Game
-## [💣 Minesweeper](https://killedbyapixel.github.io/TinyCode/games/Minisweeper) - Minesweeper Game
+## [❤️ Cross My Heart](games/CrossMyHeart) - Frogger Game
+## [⚾ BitBall](games/BitBall) - Baseball Batting Practice
+## [🐺 Wolf 256](games/Wolf256) - Interactive 3D Maze Explorer
+## [💗 My Heart Jumped](games/MyHeartJumped) - Platforming Game
+## [💣 Minesweeper](games/Minisweeper) - Minesweeper Game
 
 # 512 Byte Demos
 
-## [⛰️🏃 Mountain Run](https://killedbyapixel.github.io/TinyCode/512B/MountainRun) - Parallax Landscape with Running
+## [⛰️🏃 Mountain Run](512B/MountainRun) - Parallax Landscape with Running
 
 # 1 Kilobyte Demos
 
 Some of these use the [JS1k](https://js1k.com) rules, so a small shim may not be included in the size.
 
-## [❤️🎻🐛 Heartstring Debuger](https://killedbyapixel.github.io/TinyCode/1K/HeartstringDebugger) - Music Synth and Visuals
-## [🦋🌌 Batafuraiko](https://killedbyapixel.github.io/TinyCode/1K/Batafuraiko) - Retro Style Shoot-em-up
+## [❤️🎻🐛 Heartstring Debuger](1K/HeartstringDebugger) - Music Synth and Visuals
+## [🦋🌌 Batafuraiko](1K/Batafuraiko) - Retro Style Shoot-em-up
 ## [🎹 1Keys](https://killedbyapixel.github.io/1Keys) - Tiny 3 Instrument Piano
 - [Technical Writeup for 1Keys Piano](https://frankforce.com/1keys-how-i-made-a-keyboard-in-only-1kb-of-javascript/)
 
-## [🍀⚫ Lu1ky Pinball](https://killedbyapixel.github.io/TinyCode/1K/Lu1kyPinball) - A Tiny Pinball Physics Game
+## [🍀⚫ Lu1ky Pinball](1K/Lu1kyPinball) - A Tiny Pinball Physics Game
 - [Technical Writeup for Luc1ky Pinball Game](https://frankforce.com/lu1ky-pinball-code-deep-dive/)
 
-## [🎻 U1KE](https://killedbyapixel.github.io/TinyCode/1K/U1KE) - A Playable Ukulele Simulation
-## [☻ Digilemma](https://killedbyapixel.github.io/TinyCode/1K/Digilemma) - A Digital Dilemma of Devious Difficulty
-## [♛ Queen's Gambit](https://killedbyapixel.github.io/TinyCode/1K/QueensGambit) - Mashup of Robotron and Chess
-## [🎴 FreeCell 1k](https://killedbyapixel.github.io/TinyCode/1K/FreeCell1k) - FreeCell Solitaire
-## [🚀 Min Bytes](https://killedbyapixel.github.io/TinyCode/1K/MinBytes) - Bytebeat Album With 8 Tracks
-## [⛈️ Lightning Storm](https://killedbyapixel.github.io/TinyCode/1K/LightningStorm) - Storm Simulation with Rain, Lightning, and Sound
-## [🔊 ZzFX](https://killedbyapixel.github.io/TinyCode/1K/ZzFX) - A Tiny JavaScript Sound FX System
+## [🎻 U1KE](1K/U1KE) - A Playable Ukulele Simulation
+## [☻ Digilemma](1K/Digilemma) - A Digital Dilemma of Devious Difficulty
+## [♛ Queen's Gambit](1K/QueensGambit) - Mashup of Robotron and Chess
+## [🎴 FreeCell 1k](1K/FreeCell1k) - FreeCell Solitaire
+## [🚀 Min Bytes](1K/MinBytes) - Bytebeat Album With 8 Tracks
+## [⛈️ Lightning Storm](1K/LightningStorm) - Storm Simulation with Rain, Lightning, and Sound
+## [🔊 ZzFX](1K/ZzFX) - A Tiny JavaScript Sound FX System
 
 # 2 Kilobyte Demos
 
