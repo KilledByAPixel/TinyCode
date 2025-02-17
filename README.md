@@ -14,13 +14,13 @@ Please enjoy this collection of the best tiny JavaScript/HTML programs I have ma
 These tiny demos all fit in self contained 256 byte HTML files.
 
 ## [📼 Bitwise Liminal](https://killedbyapixel.github.io/TinyCode/256B/BitwiseLiminal) - Short Film of Simulated CCTV Footage
-![LittleJS Screenshot](https://killedbyapixel.github.io/TinyCode/256B/BitwiseLiminal/screenshot.gif)
+![LittleJS Screenshot](256B/BitwiseLiminal/screenshot.gif)
 ## [🏃 Micro Marathon](https://killedbyapixel.github.io/TinyCode/256B/MicroMarathon) - Animated People Running
 ## [🌆 City in a Bottle](https://killedbyapixel.github.io/TinyCode/256B/CityInABottle) - Tiny Raycasted City with Shadows
 - [Technical Writeup for City in a Bottle - A 256 Byte Raycasting System](https://frankforce.com/city-in-a-bottle-a-256-byte-raycasting-system/)
 - [Also available as a 256 byte Shadertoy](https://www.shadertoy.com/view/7dccRj)
 
-![LittleJS Screenshot](https://killedbyapixel.github.io/TinyCode/256B/CityInABottle/screenshot.gif)
+![LittleJS Screenshot](256B/CityInABottle/screenshot.gif)
 ## [🩸 Bloodstream](https://killedbyapixel.github.io/TinyCode/256B/Bloodstream) - 3D Blood Cells Tunnel
 ## [🖋️ Doodle Structures](https://killedbyapixel.github.io/TinyCode/256B/DoodleStructures) - Continuous Doodling
 ## [⛽ Gas Rainbow](https://killedbyapixel.github.io/TinyCode/256B/GasRainbow) - Colorful Motion Effects
