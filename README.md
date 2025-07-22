@@ -45,23 +45,18 @@ These tiny demos all fit in self contained 256 byte HTML files.
 Some of these use the [JS1k](https://js1k.com) rules, so a small shim may not be included in the size.
 
 ## [🐜 Ant1k Attack](https://killedbyapixel.github.io/TinyCode/1K/Ant1kAttack) - Ant Clicking with Realistic Graphics
-
-## [⛈️ Stormy Window](https://killedbyapixel.github.io/TinyCode/1K/StormyWindow) - Window Effect with Rain and Lightning
-## [🖌️ Flood Lines](https://killedbyapixel.github.io/TinyCode/1K/FloodLines) - Generative Art in 1K of HTML
-## [❤️🎻🐛 Heartstring Debuger](https://killedbyapixel.github.io/TinyCode/1K/HeartstringDebugger) - Music Synth and Visuals
 ## [🦋🌌 Batafuraiko](https://killedbyapixel.github.io/TinyCode/1K/Batafuraiko) - Retro Style Shoot-em-up
 ## [🎹 1Keys](https://killedbyapixel.github.io/1Keys) - Tiny 3 Instrument Piano
 - [Technical Writeup for 1Keys Piano](https://frankforce.com/1keys-how-i-made-a-keyboard-in-only-1kb-of-javascript/)
-
 ## [🍀⚫ Lu1ky Pinball](https://killedbyapixel.github.io/TinyCode/1K/Lu1kyPinball) - A Tiny Pinball Physics Game
 - [Technical Writeup for Luc1ky Pinball Game](https://frankforce.com/lu1ky-pinball-code-deep-dive/)
-
+## [⛈️ Stormy Window](https://killedbyapixel.github.io/TinyCode/1K/StormyWindow) - Window Effect with Rain and Lightning
+## [🖌️ Flood Lines](https://killedbyapixel.github.io/TinyCode/1K/FloodLines) - Generative Art in 1K of HTML
 ## [🎻 U1KE](https://killedbyapixel.github.io/TinyCode/1K/U1KE) - A Playable Ukulele Simulation
 ## [☻ Digilemma](https://killedbyapixel.github.io/TinyCode/1K/Digilemma) - A Digital Dilemma of Devious Difficulty
 ## [♛ Queen's Gambit](https://killedbyapixel.github.io/TinyCode/1K/QueensGambit) - Mashup of Robotron and Chess
 ## [🎴 FreeCell 1k](https://killedbyapixel.github.io/TinyCode/1K/FreeCell1k) - FreeCell Solitaire
 ## [🚀 Min Bytes](https://killedbyapixel.github.io/TinyCode/1K/MinBytes) - Bytebeat Album With 8 Tracks
-## [⛈️ Lightning Storm](https://killedbyapixel.github.io/TinyCode/1K/LightningStorm) - Storm Simulation with Rain, Lightning, and Sound
 ## [🔊 ZzFX](https://killedbyapixel.github.io/TinyCode/1K/ZzFX) - A Tiny JavaScript Sound FX System
 
 # 2 Kilobyte Demos
