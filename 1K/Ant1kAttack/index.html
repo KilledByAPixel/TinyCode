@@ -1,0 +1,273 @@
+<html><head><title>🐜 Ant1k Attack</title></head><body>
+<script>
+/*
+
+Ant1k Attack 🐜 by Frank Force
+
+Ants are invading! Click to squish them.
+Made by Frank Force for JS1024 2025
+https://js1024.fun/demos/2025/11/readme
+
+Features
+- Realistic ant graphics and animation
+- Ant movement and behavior
+- Background tile effect
+- Slight 3d effect with shadows
+- Ant blood splatter
+- Score display
+- Games loops every 100 ants
+
+*/
+'use strict';
+
+// js1024 shim
+const a = document.createElement('canvas');
+const c = a.getContext("2d");
+document.body.appendChild(a);
+document.body.style.margin = '0';
+a.width = innerWidth;
+a.height = innerHeight;
+const ENHANCED = 1;
+
+////////////////////////////////////////////////
+
+// constants (will be auto replace in minified)
+const MAX_ANT_COUNT = 100;
+const HALF_ANT_COUNT = MAX_ANT_COUNT/2|0;
+const QUART_ANT_COUNT = MAX_ANT_COUNT/4|0;
+
+// locals (remove declaration from minified)
+let i, j, k, l,
+
+// globals defined below (remove declaration from minified)
+objects, objectCount, score, totalScore, canvasBack, contextBack,
+
+// game stuff
+hsl = (s=0, l=0, a=1)=> contextBack.fillStyle = c.fillStyle = `hsl(0,${s}%,${l}%,${a}`,
+
+drawAnt = (p, context)=>
+{
+    for(i=3; i--;)
+    {
+        // shadow
+        hsl(0, 0, .2);
+        p.v && context.beginPath(context.fill(context.ellipse(
+            p.x, p.y+p.r/4, 
+            p.r*(.6-i/6), p.r*(1.3-i/6), 
+            p.a, 0, 9)));
+
+        // legs
+        hsl();
+        context.beginPath(context.fill(context.ellipse(
+            p.x, p.y, 
+            p.r/.6, p.r/15, 
+            p.a+Math.sin(i*2+p.d/13), 0, 9)));
+    }
+    // body/head
+    for(i=3; i--;)
+    {
+        hsl(50, 9);
+        context.beginPath(context.fill(context.ellipse(
+            p.x-p.r*Math.sin(p.a)*(i-1.4), p.y+p.r*(Math.cos(p.a)*(i-1.4))-p.r/4, 
+            p.r*(i-1?.4:.2), p.r*(i?.8:.4), 
+            p.a, 0, 9)));
+    }
+},
+
+// spawn object
+spawnObject = ()=>
+{
+    objects.push(
+    {
+        x: ++objectCount%2 ? a.width*Math.random() : Math.random() < .5 ? -50 : a.width + 50,
+        y: objectCount%2 ? Math.random() < .5 ? -50 : a.height + 50 : a.height*Math.random(),
+        r:  objectCount > QUART_ANT_COUNT ? 
+            5+Math.random()*6 : // more size variance
+            7+Math.random()*3, // normal enemy
+        v: Math.random()+1,
+        a: 0,
+        d: 0
+    });
+},
+
+// main game loop
+update = ()=>
+{
+    // clear canvas
+    a.width += 0;
+
+    // update objects
+    objects.map(p=>
+    {
+        if (p.v)
+        {
+            // move object
+            p.x += p.v * Math.sin(p.a += (Math.random()*2-1)*.03); // move and wobble
+            p.y -= p.v * Math.cos(p.a += (Math.random()*2-1)*.03); // move and wobble
+            p.d += p.v -= p.v > 2 && .002; // slow down
+
+            // bounce off walls
+            if (p.x < -15)
+                p.a = Math.random()*2-1 + 33;
+            if (p.x > a.width+15)
+                p.a = Math.random()*2-1 - 33;
+            if (p.y < -15)
+                p.a = Math.random()*2-1 + 22;
+            if (p.y > a.height+15)
+                p.a = Math.random()*2-1;
+
+            // draw object
+            drawAnt(p, c);
+        }
+    });
+
+    // draw score
+    c.font = '6em cursive';
+    for(i=9; i--;)
+    {
+        hsl(99, 50-i*9);
+        score && c.fillText(totalScore, 29+i, 99+i);
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+// setup background canvas
+a.before(canvasBack = a.cloneNode(a.style.position = 'absolute'));
+contextBack = canvasBack.getContext("2d");
+
+// draw background
+for(i=99; i--;)
+for(j=99; j--;)
+for(l=99-Math.random()*15, k=9; k--;)
+{
+    // set color and init score
+    hsl(objectCount = score = totalScore = 0, l - k*3);
+    // draw background tiles
+    contextBack.fillRect(i*99-k/6, j*99-k/6, 91+k, 91+k);
+}
+
+// int global variables
+objects = [];
+
+// spawn ants
+//for(i=50;i--;)//test spawn
+spawnObject();
+
+onmousedown = e=>
+{
+    // check for ant click
+    objects.map(p=>
+    {
+        // check if near ant
+        if (p.v && Math.hypot(p.x - e.x, p.y - e.y) < p.r*2)
+        {
+            // smash ant
+            p.v = 0;
+            ++totalScore; // increase score
+            if (++score == MAX_ANT_COUNT) 
+                objectCount = score = 0; // restart game
+
+            // spawn more ants
+            for(i = score ? score == HALF_ANT_COUNT ? MAX_ANT_COUNT : 2 : 1; i--;)
+                if (objectCount < HALF_ANT_COUNT | score == HALF_ANT_COUNT & objectCount < MAX_ANT_COUNT)
+                    spawnObject();
+
+            // draw blood
+            for(i=29; i--;)
+            {
+                hsl(99, 50-Math.random()*20, .3);
+                contextBack.beginPath(contextBack.fill(contextBack.ellipse(
+                    p.x+p.r*(Math.random()*2-1), p.y+p.r*(Math.random()*2-1), 
+                    p.r*(Math.random()+1)/2, p.r*(Math.random()+1)/7, 
+                    Math.random()*9, 0, 9)));
+            }
+            drawAnt(p, contextBack);
+        }
+        if (p.v && Math.hypot(p.x - e.x, p.y - e.y) < 199)
+        {
+            // scare ant
+            p.v = Math.random()*3 + 2; // change speed
+            p.a = Math.atan2(p.x - e.x, e.y - p.y) + Math.random()*2-1; // run away
+        }
+    });
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+// setup
+if (!ENHANCED)
+    setInterval(update, 16); // 60 fps update
+else
+{
+    // enhanced rendering system for smoother frame rate
+    let frameTimeLastMS = 0, frameTimeBufferMS=0, averageFPS = 0;
+    const updateAnimation = (frameTimeMS=0)=>
+    {
+        requestAnimationFrame(updateAnimation);
+        
+        // update time keeping
+        let frameTimeDeltaMS = frameTimeMS - frameTimeLastMS;
+        frameTimeLastMS = frameTimeMS;
+        frameTimeBufferMS += frameTimeDeltaMS;
+        frameTimeBufferMS = Math.min(frameTimeBufferMS, 50);
+
+        // apply time delta smoothing, improves smoothness of framerate in some browsers
+        let deltaSmooth = 0;
+        if (frameTimeBufferMS < 0 && frameTimeBufferMS > -9)
+        {
+            // force an update each frame if time is close enough (not just a fast refresh rate)
+            deltaSmooth = frameTimeBufferMS;
+            frameTimeBufferMS = 0;
+        }
+        
+        // update multiple frames if necessary in case of slow framerate
+        for (;frameTimeBufferMS >= 0; frameTimeBufferMS -= 1e3 / 60)
+            update();
+
+        // add the time smoothing back in
+        frameTimeBufferMS += deltaSmooth;
+
+        hsl();
+        if (frameTimeDeltaMS)
+            averageFPS = .9 * averageFPS + .1 * (1000 / frameTimeDeltaMS);
+        //c.fillText(averageFPS|0, a.width-199, 99); // show fps
+    }
+
+    // debug controls
+    onkeydown = e=>
+    {
+        // debug key press to kill first ant in list that is not dead (d.v==0)
+        if (e.key === 'd' && objects.length)
+        {
+            for (let i = objects.length;i--;)
+            {
+                if (objects[i].v > 0) // found a live ant
+                {
+                    onmousedown({ x: objects[i].x, y: objects[i].y }); // simulate click on ant
+                    break; // exit loop after killing one ant
+                }
+            }
+        }
+    }
+
+    // use hand cursor
+    document.body.style.cursor = 'grab';
+
+    // touch support
+    if (window.ontouchstart !== undefined)
+    {
+        // simulate mouse down on touch start
+        ontouchstart = e=>
+        {
+            // simulate mouse down on touch start
+            for (const touch of e.touches)
+                onmousedown({ x: touch.clientX, y: touch.clientY });
+        }
+    }
+    
+    // startup
+    updateAnimation();
+}
+
+</script>

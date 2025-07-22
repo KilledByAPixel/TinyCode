@@ -43,7 +43,9 @@ These tiny demos all fit in self contained 256 byte HTML files.
 # 1 Kilobyte Demos
 
 Some of these use the [JS1k](https://js1k.com) rules, so a small shim may not be included in the size.
-
+## [🐜 Ant1k Attack](https://killedbyapixel.github.io/TinyCode/1K/Ant1kAttack) - Ant Clicking with Realistic Graphics
+## [⛈️ Stormy Window](https://killedbyapixel.github.io/TinyCode/1K/Stormy Window) - Window Effect with Rain and Lightning
+## [🖌️ Flood Lines](https://killedbyapixel.github.io/TinyCode/1K/FloodLines) - Generative Art in 1K of HTML
 ## [❤️🎻🐛 Heartstring Debuger](https://killedbyapixel.github.io/TinyCode/1K/HeartstringDebugger) - Music Synth and Visuals
 ## [🦋🌌 Batafuraiko](https://killedbyapixel.github.io/TinyCode/1K/Batafuraiko) - Retro Style Shoot-em-up
 ## [🎹 1Keys](https://killedbyapixel.github.io/1Keys) - Tiny 3 Instrument Piano

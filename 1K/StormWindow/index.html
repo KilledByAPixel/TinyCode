@@ -1,0 +1,228 @@
+<html><head><title>⛈️ Stormy Window</title></head><body>
+<script>
+/*
+
+Stormy Window ⛈️ by Frank Force
+It was a dark and stormy night...
+- Made for JS1024 2025
+
+Features
+- background gradient
+- procedural mountains
+- moon
+- rain
+- raindrops
+- lightning
+- window panels
+
+*/
+'use strict';
+
+// js1024 shim
+const a = document.createElement('canvas');
+const c = a.getContext("2d");
+document.body.appendChild(a);
+document.body.style.margin = '0';
+a.width = innerWidth;
+a.height = innerHeight;
+const ENHANCED = 1;
+
+////////////////////////////////////////////////
+
+// locals (remove declaration from minified)
+let i, j, k, g, h,
+frame, brightness,
+lightningBranch, lightningBranchMax,
+
+canvasBack, contextBack, canvasMid, contextMid,
+canvasMid2, contextMid2, canvasMid3, contextMid3, 
+
+// game stuff
+grayColor = (l=0, a=1)=> contextBack.fillStyle = c.fillStyle = `hsl(0,0%,${l}%,${a}`,
+
+drawBackground = ()=>
+{
+    // background sky
+    for(i=99; i--;)
+        contextBack.fillStyle = grayColor(99-i),
+        contextBack.fillRect(0,i/199*a.height,a.width,-a.height)
+
+    // moon
+    contextBack.fillStyle = grayColor(99,.5);
+    contextBack.ellipse(
+        (Math.random()*.8+.1)*a.width,99+Math.random()*199,
+        99,99,
+        0,0,9);
+    contextBack.fill();
+
+    // mountains
+    for(g=h=j=9; j--;)    
+    for(i=0; i<a.width; ++i)
+    {
+        contextBack.fillStyle = grayColor(j*3+g/19),
+        contextBack.fillRect(i,a.height+g-(j/15+.1)*a.height,1,a.height);
+        g += h = Math.random()<.1? (Math.random()*2-1) : h - g/1e4;
+    }
+
+    // foreground window
+    const w = 50;
+    c.fillStyle = grayColor(4);
+    c.fillRect(0,a.height/2-w/2,a.width,w);
+    c.fillRect(a.width/2-w/2,0,w,a.height);
+    c.fillRect(0,0,w,a.height);
+    c.fillRect(a.width,0,-w,a.height);
+    c.fillRect(0,0,a.width,w);
+    c.fillRect(0,a.height,a.width,-w);
+},
+
+lightning = (X,Y,V,Z)=>
+{
+    for(;Y<a.height;)
+    {
+        contextMid3.fillRect(X += V*Z, Y += 1+Z/9, Z, Z);
+
+        if (Math.random()<.1)
+            V = Math.random()-.5;
+        if (lightningBranchMax && ++lightningBranch > 399)
+        {
+            --lightningBranchMax;
+            lightningBranch=0;
+            lightning(X,Y,V,Math.random()*Z*.8+1);
+        }
+    }
+    //console.log(lightningBranchMax)
+},
+
+// main game loop
+update = ()=>
+{
+    // draw lightning
+    canvasMid.style['mixBlendMode'] = 
+    canvasMid2.style['mixBlendMode'] = 
+    canvasMid3.style['mixBlendMode'] = 'screen';
+    canvasMid3.style['filter'] = "invert(";
+    contextMid3.globalCompositeOperation = 'lighter';
+    contextMid3.fillStyle = grayColor(2);
+    contextMid3.fillRect(0,0,a.width,a.height);
+    contextMid3.globalCompositeOperation = 'source-over';
+    if (Math.random() < .003)
+    {
+        lightningBranch = lightningBranchMax = 20;
+        brightness = 95;
+        contextMid3.fillStyle = grayColor(0,.5);
+        lightning((Math.random()*.8+.1)*a.width, -500, 0, Math.random()*9+6);
+    }
+
+    // draw rain
+    contextMid.fillStyle = grayColor(brightness-=2,.4);
+    contextMid.fillRect(0,0,a.width,a.height)
+    contextMid.rotate(-.2);
+    contextMid.fillStyle = grayColor(99,.2);
+    for(i=2e3; i--;)
+        contextMid.fillRect(
+            Math.sin(i**3)*a.width+a.width/2, 
+            (2e3+i)/2*(frame/60*(1+Math.sin(i)/4)+9)%(a.height+a.width/4), 
+            Math.sin(i)*2, 50);
+    contextMid.rotate(.2);
+
+    // draw raindrops
+    contextMid2.fillStyle = grayColor(0,.2);
+    contextMid2.fillRect(0,0,a.width,a.height)
+    for(j=2;j--;)
+    for(contextMid2.fillStyle=grayColor(30+99*j,.1),i=500;i--;)
+    {
+        contextMid2.beginPath();
+        contextMid2.ellipse(
+            (i/500*a.width+frame/9)%a.width+Math.sin(frame/99*(i%29+9)+i),
+            (i**3+frame*(i%29+9)/9)%a.height-j*2,
+            g=3-j+Math.sin(i+frame/60)/2,
+            g*(Math.sin(i+frame/60+11)+2),
+            0,0,9);
+        contextMid2.fill();
+    }
+
+    ++frame;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+// setup background canvas
+a.style.position = 'absolute';
+a.before(canvasBack = a.cloneNode());
+a.before(canvasMid  = a.cloneNode());
+a.before(canvasMid3 = a.cloneNode());
+a.before(canvasMid2 = a.cloneNode());
+contextBack = canvasBack.getContext("2d");
+contextMid  = canvasMid.getContext("2d");
+contextMid3 = canvasMid3.getContext("2d");
+contextMid2 = canvasMid2.getContext("2d");
+
+// init
+drawBackground(frame = brightness = 0);
+
+///////////////////////////////////////////////////////////////////////////////
+
+// setup
+if (!ENHANCED)
+    setInterval(update, 16); // 60 fps update
+else
+{
+    // enhanced rendering system for smoother frame rate
+    let frameTimeLastMS = 0, frameTimeBufferMS=0, averageFPS = 0;
+    const updateAnimation = (frameTimeMS=0)=>
+    {
+        requestAnimationFrame(updateAnimation);
+        
+        // update time keeping
+        let frameTimeDeltaMS = frameTimeMS - frameTimeLastMS;
+        frameTimeLastMS = frameTimeMS;
+        frameTimeBufferMS += frameTimeDeltaMS;
+        frameTimeBufferMS = Math.min(frameTimeBufferMS, 50);
+
+        // apply time delta smoothing, improves smoothness of framerate in some browsers
+        let deltaSmooth = 0;
+        if (frameTimeBufferMS < 0 && frameTimeBufferMS > -9)
+        {
+            // force an update each frame if time is close enough (not just a fast refresh rate)
+            deltaSmooth = frameTimeBufferMS;
+            frameTimeBufferMS = 0;
+        }
+        
+        // update multiple frames if necessary in case of slow framerate
+        for (;frameTimeBufferMS >= 0; frameTimeBufferMS -= 1e3 / 60)
+            update();
+
+        // add the time smoothing back in
+        frameTimeBufferMS += deltaSmooth;
+
+        contextMid.fillStyle = grayColor(99);
+        contextMid.font = '5em monospace';
+        if (frameTimeDeltaMS)
+            averageFPS = .9 * averageFPS + .1 * (1000 / frameTimeDeltaMS);
+        //contextMid.fillText(averageFPS|0, 99, 99); // show fps
+    }
+
+    onresize = e=>
+    {
+        // resize canvas
+        a.width = 
+        canvasBack.width =
+        canvasMid.width =
+        canvasMid2.width =
+        canvasMid3.width = innerWidth;
+
+        a.height = 
+        canvasBack.height =
+        canvasMid.height =
+        canvasMid2.height =
+        canvasMid3.height = innerHeight;
+
+        // redraw background
+        drawBackground();
+    }
+    
+    // startup
+    updateAnimation();
+}
+
+</script>
