@@ -1,0 +1,324 @@
+<html><head><title>☁️ Skydreams</title></head><body>
+<script>
+/*
+SKYDREAMS 🌈 A 1K DEMO FEVER DREAM
+COPYRIGHT 2026 ☁️ KILLED BY A PIXEL
+Made by Frank Force for JS1024 2026
+https://js1024.fun/demos/2026/25/readme
+
+An endless race in the sky inspired by 90's 3D games like sky roads, marble madness, and sonic 3d. My goal was to create a dreamlike experience with full resolution full speed graphics that would be easy to pick up and play.
+
+Features
+- 3D rendering system
+- procedurally generated levels
+- level increases in difficulty over time
+- 3D player sphere with shadow
+- mouse controls
+- colorful sky with stars
+
+*/
+
+'use strict';
+
+// js1024 shim
+const a = document.createElement('canvas');
+const c = a.getContext("2d");
+document.body.appendChild(a);
+document.body.style.margin = '0';
+a.width = innerWidth;
+a.height = innerHeight;
+const ENHANCED = 1;
+
+////////////////////////////////////////////////
+
+'use strict';
+
+const test = 0;          // test stuff
+const cameraInFront = 3; // camera distance
+const F = .7;            // focal length
+//a.width = a.height = 500
+
+// locals (remove from minified)
+let i, j, r, p, s, px, py;
+let ax, ay, bx, by, ex, ey, fx, fy;
+let mouseJustPressed, mouseMode, keyInput;
+
+// game variables
+let x=0, y=0, z=0, vy=0; // ship
+let trackGap = 0;        // track gap
+let mouseDown = 0;       // mouse jump
+let trackSx = 3;         // track start x
+let trackSw = 3;         // track width
+let mouseX = a.width/2;  // mouse
+let trackRows = [];      // track
+
+// set draw color
+let hsl = (h, s, l, a=1)=> 
+    c.fillStyle = `hsl(${h},${s}%,${l}%,${a})`;
+
+// project point to screen
+let P = (px, py, dz) =>
+    [a.width/2 + 
+    (px-x+(dz-cameraInFront)**2/50*Math.cos((z+dz)/49))*a.height*F/dz,
+    a.height/2 - (py-2+dz*dz/50)*a.height*F/dz, a.height*F/dz];
+
+// main loop
+let update = () =>
+{
+    // background
+    for(i=500; i--;)
+    {
+        // top
+        hsl(170+i/9+z, 70, 70-i/10);
+        c.fillRect(0, a.height*i/500, a.width, a.height/250);
+        
+        // stars
+        hsl(0, 0, 99);
+        c.fillRect((i*i + z*i/20)%a.width, i**3.3%a.height, i%4*a.height/500, i%4*a.height/500);
+    }
+
+    // track, far to near
+    for (r = z+40|0; r > z; r--)
+    {
+        for (i = trackRows.length; i <= r; )
+        {
+            // randomize new segment
+            if (trackGap < -8 & Math.random() < Math.min(.2,i/1e4))
+            {
+                // sometimes a gap
+                trackGap = 2 + Math.min(4, i/400);
+            }
+            if (Math.random() < .1)
+            {
+                // new span width 2-4
+                trackSw = 2 + Math.random()*3|0;
+                trackSx = Math.max(0, Math.min(7-trackSw, trackSx - 2 + Math.random()*5|0));
+            }
+            trackGap--;
+
+            // create the row
+            trackRows[i++] = p = [];
+            for (j = 7; j--;)
+            {
+                p[j] = i < 40 // start area
+                    | Math.random() > .9 // pillar
+                    | trackGap < 0 // gap
+                    & trackSx <= j & j < trackSx + trackSw // track
+                    & Math.random() > Math.min(.2,z/1e4); // random holes
+            }
+        }
+        // draw the track row
+        for (j = 2; j--;)
+        for (i = 7; i--;)
+        {
+            if (trackRows[r][i])
+            {
+                // calculate grid points
+                [ax, ay] = P(i-3.5, 0, r-z);
+                [bx, by] = P(i-2.5, 0, r-z);
+                [ex, ey] = P(i-3.5, 0, r-z+1);
+                [fx, fy] = P(i-2.5, 0, r-z+1);
+
+                // draw the track tile
+                if (j)
+                {
+                    // back
+                    hsl(99+(r>>7)*70, 60, 30+(r+i&1)*9);
+                    c.fillRect(ex,ey,fx-ex,(40-r+z)/30*a.height);
+                }
+                else
+                {
+                    // front
+                    hsl(99+(r>>7)*70, 60, 9+(r+i&1)*5);
+                    c.fillRect(ax,ay,bx-ax,(40-r+z)/30*a.height);
+
+                    // top
+                    hsl(99+(r>>7)*70, 60, 60+(r+i&1)*30);
+                    //if (test && ((r|0)==(z+cameraInFront|0)) && i==(Math.round(x)+3|0)) hsl(0,99,50)
+                    c.lineTo(ax, ay); c.lineTo(bx, by);
+                    c.lineTo(fx, fy); c.lineTo(ex, ey); 
+                    c.beginPath(c.fill());
+                }
+            }
+        }
+    }
+
+    if (y >= 0 & trackRows[z+cameraInFront|0][Math.round(x+3)])
+    {
+        // draw player shadow
+        hsl(0, 0, 0, .5);
+        [px, py, s] = P(x, 0, cameraInFront);
+        c.ellipse(px, py, s/4, s/9, 0, 0, 9);
+        c.beginPath(c.fill());
+    }
+    for (i = 99; i--;)
+    {
+        // draw player
+        hsl(z/9, 90, 99-i*.7);
+        [px, py, s] = P(x+.1-i/1e3, y+.35-i/1e3, cameraInFront);
+        c.ellipse(px, py, i*s/300, i*s/300, 0, 0, 9);
+        c.beginPath(c.fill());
+    }
+
+    // update player
+    if (y > -4)
+    {
+        // update physics
+        if (ENHANCED)
+        {
+            if (mouseMode)
+                x += mouseX/a.width/2 - .25;
+            else
+            {
+                // keyboard controls
+                if (keyInput['d'] || keyInput['ArrowRight'])
+                    x += .1;
+                if (keyInput['a'] || keyInput['ArrowLeft'])
+                    x -= .1;
+            }
+        }
+        else
+            x += mouseX/a.width/2 - .25;
+        y += vy -= .006;
+
+        // ramp up speed
+        z += Math.min(.5, .2 + z/5e3);
+        if (test) z += .5
+
+        // check if close enough to land
+        if (y < 0 & y > -.3 & 
+            trackRows[z+cameraInFront|0][Math.round(x+3)])
+        {
+            // land and jump
+            y = vy = mouseDown;
+            if (ENHANCED && window.ontouchstart !== undefined)
+                mouseDown = 0; // touch jump
+        }
+        if (test && y < 0 & vy < 0)
+            y = vy = 0;
+    }
+    else if (ENHANCED)
+    {
+        if (mouseJustPressed)
+        {
+            // jump
+            // reset game
+            x = y = z = vy = trackGap = 0;
+            trackSx = trackSw = 3;
+            trackRows = [];
+        }
+    }
+
+    if (ENHANCED)
+    {
+        mouseJustPressed = 0;
+    }
+
+    // hud
+    if (test)
+    {
+        c.font = 'bold 56px impact';
+        for(i=9;i--;)
+        {
+            hsl(0, 99, i?50:100);
+            c.fillText((z|0), 9+ i, 62+i);
+        }
+    }
+}
+
+// mouse controls
+onmousemove = e => mouseX = e.clientX;
+onmousedown = e => mouseDown = .1;
+onmouseup   = e => mouseDown = 0;
+
+if (!ENHANCED)
+    setInterval(update, 16); // 60 fps update
+else
+{
+    // enhanced rendering system for smoother frame rate
+    let frameTimeLastMS = 0, frameTimeBufferMS=0;
+    const updateAnimation = (frameTimeMS=0)=>
+    {
+        requestAnimationFrame(updateAnimation);
+        
+        // update time keeping
+        let frameTimeDeltaMS = frameTimeMS - frameTimeLastMS;
+        frameTimeLastMS = frameTimeMS;
+        frameTimeBufferMS += frameTimeDeltaMS;
+        frameTimeBufferMS = Math.min(frameTimeBufferMS, 50);
+
+        // apply time delta smoothing, improves smoothness of framerate in some browsers
+        let deltaSmooth = 0;
+        if (frameTimeBufferMS < 0 && frameTimeBufferMS > -9)
+        {
+            // force an update each frame if time is close enough (not just a fast refresh rate)
+            deltaSmooth = frameTimeBufferMS;
+            frameTimeBufferMS = 0;
+        }
+        
+        // update multiple frames if necessary in case of slow framerate
+        for (;frameTimeBufferMS >= 0; frameTimeBufferMS -= 1e3 / 60)
+            update();
+
+        // add the time smoothing back in
+        frameTimeBufferMS += deltaSmooth;
+    }
+
+    mouseMode = 1;
+    keyInput = [];
+    onmousedown = e =>
+    {
+        mouseDown = .1; 
+        mouseJustPressed = 1;
+        mouseMode = 1;
+    }
+
+    onkeydown = e=>
+    {
+        mouseMode = 0;
+        keyInput[e.key] = 1;
+        if (e.key === 'r')
+        {
+            x = y = z = vy = trackGap = 0;
+            trackSx = trackSw = 3;
+            trackRows = [];
+        }
+        if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w')
+        {
+            mouseDown = .1; 
+            mouseJustPressed = 1;
+        }
+    }
+    onkeyup = e=>
+    {
+        keyInput[e.key] = 0;
+        if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w')
+        {
+            mouseDown = 0; 
+        }
+    }
+
+    onresize = e=>
+    {
+        a.width = innerWidth;
+        a.height = innerHeight;
+    }
+
+    // touch support
+    if (window.ontouchstart !== undefined)
+    {
+        // simulate mouse down on touch start
+        ontouchstart = e=> onmouseup();
+        ontouchend = e=> onmousedown();
+        ontouchmove = e=>
+        {
+            // simulate mouse move on touch move
+            for (const touch of e.touches)
+                onmousemove({ clientX: touch.clientX, clientY: touch.clientY });
+        }
+    }
+    
+    updateAnimation();
+}
+
+</script>
