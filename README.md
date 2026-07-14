@@ -44,7 +44,7 @@ These tiny demos all fit in self contained 256 byte HTML files.
 
 Some of these use the [JS1k](https://js1k.com) rules, so a small shim may not be included in the size.
 
-## [☁️ Skydreams](https://killedbyapixel.github.io/TinyCode/1K/Skydreams) - 3D Fever Dream in the Sky
+## [🌈☁️ Skydreams](https://killedbyapixel.github.io/TinyCode/1K/Skydreams) - 3D Fever Dream in the Sky
 ## [🐜 Ant1k Attack](https://killedbyapixel.github.io/TinyCode/1K/Ant1kAttack) - Ant Clicking with Realistic Graphics
 ## [🦋🌌 Batafuraiko](https://killedbyapixel.github.io/TinyCode/1K/Batafuraiko) - Retro Style Shoot-em-up
 ## [🎹 1Keys](https://killedbyapixel.github.io/1Keys) - Tiny 3 Instrument Piano
