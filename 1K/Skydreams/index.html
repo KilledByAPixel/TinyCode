@@ -227,7 +227,7 @@ let update = () =>
 }
 
 // mouse controls
-onmousemove = e => mouseX = e.clientX;
+onmousemove = e => mouseX = e.x;
 onmousedown = e => mouseDown = .1;
 onmouseup   = e => mouseDown = 0;
 
@@ -266,6 +266,7 @@ else
 
     mouseMode = 1;
     keyInput = [];
+    onmousemove = e => mouseX = e.clientX;
     onmousedown = e =>
     {
         mouseDown = .1; 
