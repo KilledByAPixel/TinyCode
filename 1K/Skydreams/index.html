@@ -68,18 +68,19 @@ let update = () =>
     // background
     for(i=500; i--;)
     {
-        // top
-        hsl(170+i/9+z, 70, 70-i/10);
+        // sky
+        hsl(170+i/9+z, 70, 70-i/9);
         c.fillRect(0, a.height*i/500, a.width, a.height/250);
         
         // stars
         hsl(0, 0, 99);
-        c.fillRect((i*i + z*i/20)%a.width, i**3.3%a.height, i%4*a.height/500, i%4*a.height/500);
+        c.fillRect((i*i + z*i/99)%a.width, i**3.3%a.height, i%4*a.height/500, i%4*a.height/500);
     }
 
     // track, far to near
     for (r = z+40|0; r > z; r--)
     {
+        // create new track rows if needed
         for (i = trackRows.length; i <= r; )
         {
             // randomize new segment
@@ -92,6 +93,7 @@ let update = () =>
             {
                 // new span width 2-4
                 trackSw = 2 + Math.random()*3|0;
+                //trackSx = Math.random()*(8-trackSw)|0;
                 trackSx = Math.max(0, Math.min(7-trackSw, trackSx - 2 + Math.random()*5|0));
             }
             trackGap--;
@@ -100,7 +102,7 @@ let update = () =>
             trackRows[i++] = p = [];
             for (j = 7; j--;)
             {
-                p[j] = i < 40 // start area
+                p[j] = i < 35 // start area
                     | Math.random() > .9 // pillar
                     | trackGap < 0 // gap
                     & trackSx <= j & j < trackSx + trackSw // track
@@ -122,7 +124,7 @@ let update = () =>
                 // draw the track tile
                 if (j)
                 {
-                    // back
+                    // back and sides
                     hsl(99+(r>>7)*70, 60, 30+(r+i&1)*9);
                     c.fillRect(ex,ey,fx-ex,(40-r+z)/30*a.height);
                 }
@@ -143,6 +145,7 @@ let update = () =>
         }
     }
 
+    // draw player
     if (y >= 0 & trackRows[z+cameraInFront|0][Math.round(x+3)])
     {
         // draw player shadow
@@ -154,7 +157,7 @@ let update = () =>
     for (i = 99; i--;)
     {
         // draw player
-        hsl(z/9, 90, 99-i*.7);
+        hsl(z/9-i, 90, 99-i*.7);
         [px, py, s] = P(x+.1-i/1e3, y+.35-i/1e3, cameraInFront);
         c.ellipse(px, py, i*s/300, i*s/300, 0, 0, 9);
         c.beginPath(c.fill());
@@ -210,9 +213,7 @@ let update = () =>
     }
 
     if (ENHANCED)
-    {
         mouseJustPressed = 0;
-    }
 
     // hud
     if (test)
