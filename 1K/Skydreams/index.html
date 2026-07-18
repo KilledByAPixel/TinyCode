@@ -308,11 +308,20 @@ else
     // touch support
     if (window.ontouchstart !== undefined)
     {
+        // disable mobile text selection, long-press callout/magnifier, and touch gestures
+        for (const el of [document.documentElement, document.body, a])
+        {
+            el.style.userSelect = el.style.webkitUserSelect = 'none';
+            el.style.webkitTouchCallout = 'none';
+            el.style.touchAction = 'none';
+        }
+
         // simulate mouse down on touch start
-        ontouchstart = e=> onmouseup();
-        ontouchend = e=> onmousedown();
+        ontouchstart = e=> { e.preventDefault(); onmouseup(); };
+        ontouchend = e=> { e.preventDefault(); onmousedown(); };
         ontouchmove = e=>
         {
+            e.preventDefault();
             // simulate mouse move on touch move
             for (const touch of e.touches)
                 onmousemove({ clientX: touch.clientX, clientY: touch.clientY });
