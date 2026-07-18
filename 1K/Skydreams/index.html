@@ -157,7 +157,7 @@ let update = () =>
     for (i = 99; i--;)
     {
         // draw player
-        hsl(z/9-i, 90, 99-i*.7);
+        hsl(z/9-i/3, 90, 99-i*.7);
         [px, py, s] = P(x+.1-i/1e3, y+.35-i/1e3, cameraInFront);
         c.ellipse(px, py, i*s/300, i*s/300, 0, 0, 9);
         c.beginPath(c.fill());
