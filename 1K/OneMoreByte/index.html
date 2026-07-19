@@ -118,7 +118,7 @@ let update = e =>
     }
 
     // fly straight into a node (instead of grabbing it) = smash = death
-    if (!dead & !grabbed & nearDist < S/15)
+    if (!dead & !grabbed & nearDist < S/9)
         dead = 1;
 
     //////////////////////////////////////////////////////////////
@@ -149,7 +149,7 @@ let update = e =>
         for (j = 9; j--;)
         {
             hsl(n**3.3, 99, n == nearN ? 99 : 50, .3);
-            c.beginPath(c.fill(c.arc(nodeX(n) - cameraX, nodeY(n), S*j/110, 0, 7)));
+            c.beginPath(c.fill(c.arc(nodeX(n) - cameraX, nodeY(n), S*j/75, 0, 7)));
         }
     }
 
