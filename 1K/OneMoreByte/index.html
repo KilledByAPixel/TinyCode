@@ -238,7 +238,15 @@ else
         S = Math.min(W, H);
         reset();
     }
-    onkeydown = e => e.repeat || onmousedown();
+    onkeydown = e =>
+    {
+        if (e.repeat)
+            return;
+
+        onmousedown();
+        if (e.key == 'r')
+            reset();
+    };
     onkeyup = e => onmouseup();
 
     // touch support
