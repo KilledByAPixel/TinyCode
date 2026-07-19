@@ -1,0 +1,263 @@
+<html><head><title>🚀 One More Byte</title></head><body>
+<script>
+/*
+ONE MORE BYTE 🚀🌕
+COPYRIGHT 2026 KILLED BY A PIXEL
+
+Made by Frank Force for JS1024 2026
+https://js1024.fun/demos/2026/43/readme
+
+This game is a 1k demake of the game One More Line. I tried to capture the core essence of the game. The difficulty slightly varies depending on your screen aspect ratio.
+
+How to play: It is a one button game where you try to get as far to the right as possible. You can click to grab on to the nearest star and rotate around it. You die if you crash into the wall or a star. You can just click to play again.
+
+Features
+- one button mouse control gameplay
+- player with long colorful trail
+- procedurally generated level
+- grapple display
+- parallax starfield
+- 3D score display
+- hue shifting effects
+
+*/
+
+'use strict';
+
+// js1024 shim
+const a = document.createElement('canvas');
+const c = a.getContext("2d");
+document.body.appendChild(a);
+document.body.style.margin = '0';
+a.width = innerWidth;
+a.height = innerHeight;
+const ENHANCED = 1;
+
+////////////////////////////////////////////////
+
+// ONE MORE BYTE - A 1K SPACE GAME
+// COPYRIGHT 2026 - KILLED BY A PIXEL
+
+// tuning constants (inlined by closure)
+const SPACING = 1;   // node spacing in S units
+const TRAIL   = 300; // trail length in frames
+
+// locals + globals (=0 so the stripped `let` leaves valid assignments)
+let i, j, n, dx, dy;
+let px, py, dir, cameraX, dead, seed, score;
+let grabbed, grabN, radius, phi, spin;
+let nearN, nearDist, trail;
+let H = a.height, W = a.width, S = Math.min(W, H);
+
+// set fill color
+let hsl = (h, s, l, al=1) =>
+    c.fillStyle = `hsl(${h},${s}%,${l}%,${al})`;
+
+// node n world position (seed = random course phase, set each game)
+let nodeX = n => (n+2) * S * SPACING;
+let nodeY = n => H/2 + H/4 * Math.sin(n**3.3 + seed);
+
+let reset = e =>
+{
+    py = H/2;
+    px = grabbed = dead = score = dir = 0; // dir 0 = flying +X
+    trail = [];
+    seed = Math.random() * 99;
+}
+reset();
+
+let update = e =>
+{
+    if (dead)
+        dead++; // explosion timer
+    else
+    {
+        if (grabbed)
+        {
+            // swing around the node
+            phi += spin * S / 70 / radius;
+            px = nodeX(grabN) + radius * Math.cos(phi);
+            py = nodeY(grabN) + radius * Math.sin(phi);
+            dir = phi + spin * Math.PI/2; // tangent
+        }
+        else
+        {
+            px += Math.cos(dir) * S / 70;
+            py += Math.sin(dir) * S / 70;
+        }
+
+        score = Math.max(score, px);
+
+        // player trail
+        trail.push(px, py);
+        if (trail.length > TRAIL)
+            trail.splice(0, 2);
+
+        // death: crash into top/bottom or node
+        if (py < 0 | py > H)
+        {
+            dead = 1;
+            grabbed = 0;
+        }
+    }
+
+    // camera follows player
+    cameraX = Math.max(-W/2, px - W*.3 - dead);
+
+    // find nearest node = grab target
+    nearDist = S;
+    nearN = -1;
+    for (n = px/S/SPACING-2|0, i = 9; i--; n++)
+    {
+        j = Math.hypot(px - nodeX(n), py - nodeY(n));
+        if (j < nearDist)
+        {
+            nearDist = j;
+            nearN = n;
+        }
+    }
+
+    // fly straight into a node (instead of grabbing it) = smash = death
+    if (!dead & !grabbed & nearDist < S/15)
+        dead = 1;
+
+    //////////////////////////////////////////////////////////////
+    // render (all circles)
+
+    // background: one huge circle clears the frame in a deep space tone
+    hsl(240+cameraX/99, 99, 4);
+    c.beginPath(c.fill(c.arc(0, 0, W + H, 0, 7)));
+    
+    {
+        // show grab radius
+        hsl(0, 0, 9);
+        dead || grabbed && c.beginPath(c.fill(c.arc(nodeX(grabN)-cameraX,nodeY(grabN), radius, 0, 7)));
+    }
+
+    // parallax starfield
+    for (i = 500; i--;)
+    {
+        hsl(0, 0, i**3.5%99);
+        c.beginPath(c.fill(c.arc(W - (i**3.7 * W + cameraX*i/1e3) % W,
+        i**3.3 % H, i*S/3e5, 0, 7)));
+    }
+
+    // nodes
+    for (i = 4; i--; )
+    {
+        n = i + cameraX/S/SPACING - 2 | 0;
+        for (j = 9; j--;)
+        {
+            hsl(n**3.3, 99, n == nearN ? 99 : 50, .3);
+            c.beginPath(c.fill(c.arc(nodeX(n) - cameraX, nodeY(n), S*j/110, 0, 7)));
+        }
+    }
+
+    // player trail
+    for (i = trail.length; i-=2;)
+    {
+        hsl(px/40 + i, 95, 60);
+        c.beginPath(c.fill(c.arc(trail[i] - cameraX, trail[i+1], S/40*i/trail.length, 0, 7)));
+    }
+
+    // tether dots from player to the anchor while swinging
+    for (i = 9; i--;)
+    {
+        hsl(0, 0, 99, grabbed ? .7 : .2);
+        dead || c.beginPath(c.fill(c.arc(px + (nodeX(grabbed ? grabN: nearN)-px)*i/9 - cameraX,
+            py + (nodeY(grabbed ? grabN: nearN)-py)*i/9, S/200, 0, 7)));
+
+        // score
+        hsl(score>>8, 99, i?50:99);
+        c.font = S/5 + 'px monospace';
+        c.fillText(score>>8, S/30+i*S/500, S/5+i*S/500);
+    }
+
+    // player
+    hsl(0, 99, 99, 1 - dead/60);
+    c.beginPath(c.fill(c.arc(px - cameraX, py, S*(1 + dead/5)/50, 0, 7)));
+}
+
+// press: grab the target node (or restart), release: let go
+onmousedown = e =>
+{
+    if (dead>30)
+        reset();
+    else if (!grabbed && nearN >= 0)
+    {
+        grabbed = 1;
+        grabN = nearN;
+        radius = nearDist;
+        dx = px - nodeX(grabN);
+        dy = py - nodeY(grabN);
+        phi = Math.atan2(dy, dx);
+        // spin the way that continues the current heading
+        spin = dx*Math.sin(dir) > dy*Math.cos(dir) ? 1 : -1;
+    }
+}
+onmouseup = e => grabbed = 0;
+
+if (!ENHANCED)
+    setInterval(update, 16); // 60 fps update
+else
+{
+    // enhanced rendering system for smoother frame rate
+    let frameTimeLastMS = 0, frameTimeBufferMS=0;
+    const updateAnimation = (frameTimeMS=0)=>
+    {
+        requestAnimationFrame(updateAnimation);
+        
+        // update time keeping
+        let frameTimeDeltaMS = frameTimeMS - frameTimeLastMS;
+        frameTimeLastMS = frameTimeMS;
+        frameTimeBufferMS += frameTimeDeltaMS;
+        frameTimeBufferMS = Math.min(frameTimeBufferMS, 50);
+
+        // apply time delta smoothing, improves smoothness of framerate in some browsers
+        let deltaSmooth = 0;
+        if (frameTimeBufferMS < 0 && frameTimeBufferMS > -9)
+        {
+            // force an update each frame if time is close enough (not just a fast refresh rate)
+            deltaSmooth = frameTimeBufferMS;
+            frameTimeBufferMS = 0;
+        }
+        
+        // update multiple frames if necessary in case of slow framerate
+        for (;frameTimeBufferMS >= 0; frameTimeBufferMS -= 1e3 / 60)
+            update();
+
+        // add the time smoothing back in
+        frameTimeBufferMS += deltaSmooth;
+    }
+
+    // extras: resize + keyboard + touch
+    onresize = e =>
+    {
+        a.width  = W = innerWidth;
+        a.height = H = innerHeight;
+        S = Math.min(W, H);
+        reset();
+    }
+    onkeydown = e => e.repeat || onmousedown();
+    onkeyup = e => onmouseup();
+
+    // touch support
+    if (window.ontouchstart !== undefined)
+    {
+        // disable mobile text selection, long-press callout/magnifier, and touch gestures
+        for (const el of [document.documentElement, document.body, a])
+        {
+            el.style.userSelect = el.style.webkitUserSelect = 'none';
+            el.style.webkitTouchCallout = 'none';
+            el.style.touchAction = 'none';
+        }
+
+        // simulate mouse down on touch start
+        ontouchstart = e=> { e.preventDefault(); onmousedown(); };
+        ontouchend = e=> { e.preventDefault(); onmouseup(); };
+    }
+
+    updateAnimation();
+}
+
+</script>
