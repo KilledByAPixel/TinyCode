@@ -55,7 +55,7 @@ let hsl = (h, s, l, al=1) =>
 
 // node n world position (seed = random course phase, set each game)
 let nodeX = n => (n+2) * S * SPACING;
-let nodeY = n => H/2 + H/4 * Math.sin(n**3.3 + seed);
+let nodeY = n => H/2 + H/2.5 * Math.sin(n**3.3 + seed);
 
 let reset = e =>
 {
@@ -117,9 +117,8 @@ let update = e =>
         }
     }
 
-    // fly straight into a node (instead of grabbing it) = smash = death
-    if (!dead & !grabbed & nearDist < S/9)
-        dead = 1;
+    // fly straight into a node
+    dead ||=  nearDist < S/9;
 
     //////////////////////////////////////////////////////////////
     // render (all circles)
@@ -148,8 +147,8 @@ let update = e =>
         n = i + cameraX/S/SPACING - 2 | 0;
         for (j = 9; j--;)
         {
-            hsl(n**3.3, 99, n == nearN ? 99 : 50, .3);
-            c.beginPath(c.fill(c.arc(nodeX(n) - cameraX, nodeY(n), S*j/75, 0, 7)));
+            hsl(n**3.3, 99, n - nearN ? 50 : 99, .3);
+            c.beginPath(c.fill(c.arc(nodeX(n) - cameraX, nodeY(n), S*j/(75+3*Math.sin(px/99)), 0, 7)));
         }
     }
 
@@ -176,6 +175,7 @@ let update = e =>
     // player
     hsl(0, 99, 99, 1 - dead/60);
     c.beginPath(c.fill(c.arc(px - cameraX, py, S*(1 + dead/5)/50, 0, 7)));
+
 }
 
 // press: grab the target node (or restart), release: let go
