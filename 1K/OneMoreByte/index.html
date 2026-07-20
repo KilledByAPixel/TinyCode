@@ -164,7 +164,7 @@ let update = e =>
     {
         hsl(0, 0, 99, grabbed ? .7 : .2);
         dead || c.beginPath(c.fill(c.arc(px + (nodeX(grabbed ? grabN: nearN)-px)*i/9 - cameraX,
-            py + (nodeY(grabbed ? grabN: nearN)-py)*i/9, S/200, 0, 7)));
+            py + (nodeY(grabbed ? grabN: nearN)-py)*i/9, S/99, 0, 7)));
 
         // score
         hsl(score>>8, 99, i?50:99);
