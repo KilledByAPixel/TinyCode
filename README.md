@@ -69,6 +69,7 @@ Some of these use the [JS1k](https://js1k.com) rules, so a small shim may not be
 # 13 Kilobyte Demos
 
 ## [🌈🚀 SP13KTRA](https://github.com/KilledByAPixel/SP13KTRA) - Futuristic 3D Racing
+- [SP13KTRA Music Bench Demo](https://killedbyapixel.github.io/SP13KTRA/tools/music.html)
 ## [☀️⛳ Sunshine Golf Classic](https://github.com/KilledByAPixel/Golf13K) - Chill Minimal 3D Golf
 ## [🚗🌴 Driven Wild](https://github.com/KilledByAPixel/Drive13K) - 3D Racing Game with Generated Levels
 ## [🪐🔫 Space Huggers](https://github.com/KilledByAPixel/SpaceHuggers) - Roguelike Platformer Shoot-em-up 
