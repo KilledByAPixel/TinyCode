@@ -66,6 +66,18 @@ Some of these use the [JS1k](https://js1k.com) rules, so a small shim may not be
 ## [🌲 Hue Jumper](https://killedbyapixel.github.io/HueJumper2k/) - 3D Racing Game with Generated Levels
 - [Technical Writeup for Hue Jumper 2K racing game](https://frankforce.com/how-i-made-a-3d-game-in-only-2k-of-javascript/)
 
+# 13 Kilobyte Demos
+
+## [🌈🚀 SP13KTRA](https://github.com/KilledByAPixel/SP13KTRA) - Futuristic 3D Racing
+## [☀️⛳ Sunshine Golf Classic](https://github.com/KilledByAPixel/Golf13K) - Chill Minimal 3D Golf
+## [🚗🌴 Driven Wild](https://github.com/KilledByAPixel/Drive13K) - 3D Racing Game with Generated Levels
+## [🪐🔫 Space Huggers](https://github.com/KilledByAPixel/SpaceHuggers) - Roguelike Platformer Shoot-em-up 
+## [💫❤️ Bounce Back](https://killedbyapixel.github.io/BounceBack/) - Boomerang Zelda Homage
+## [😺🐾 L1TTLE PAWS](https://github.com/KilledByAPixel/JS13K2025) - Physics Platformer With Cats
+## [💻💾 OS13K](https://github.com/KilledByAPixel/OS13k) - A Tiny OS and Mini Game Engine
+## [🎵🔨 NoteCraft](https://github.com/KilledByAPixel/NoteCraft) - Cellular Automata Music Game
+## [🥚⏰ Egg Time Rewind](https://github.com/KilledByAPixel/EggTimeRewind13k) - Egg Cracking Sci-Fi Shooter
+
 # Disectng a Dweet
 
 A series of deep dives into how some of my Dwitter programs work.
